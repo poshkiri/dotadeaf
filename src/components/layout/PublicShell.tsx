@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { PublicNavbar } from "./PublicNavbar";
 
 import { SiteContainer } from "./SiteContainer";
 
@@ -16,38 +17,11 @@ export async function PublicShell({ children }: PublicShellProps) {
 
   return (
     <div className="ui-public-shell">
-      <header className="ui-public-header">
-        <SiteContainer>
-          <div className="ui-public-header-row">
-            <Link href="/" className="ui-public-brand">
-              InterestingDeaf
-            </Link>
-            <nav aria-label="Public navigation" className="ui-public-nav">
-              <Link href="/players">Players</Link>
-              <Link href="/patches">Patches</Link>
-              <Link href="/about">About</Link>
-              {user ? <Link href="/messages">Messages</Link> : null}
-              {user ? <Link href="/profile">Profile</Link> : null}
-            </nav>
-            <div className="ui-public-auth-links">
-              {user ? (
-                <Link href="/dashboard" className="ui-button ui-public-register-link">
-                  Open platform
-                </Link>
-              ) : (
-                <>
-                  <Link href="/login">Log in</Link>
-                  <Link href="/register" className="ui-button ui-public-register-link">
-                    Join
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        </SiteContainer>
-      </header>
+      <PublicNavbar isAuthenticated={Boolean(user)} />
 
-      <SiteContainer>{children}</SiteContainer>
+      <SiteContainer>
+        <div className="pt-20 md:pt-24">{children}</div>
+      </SiteContainer>
 
       <footer className="ui-public-footer">
         <SiteContainer>

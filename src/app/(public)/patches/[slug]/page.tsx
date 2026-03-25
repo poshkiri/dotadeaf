@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PatchContent } from "@/components/features/patches";
+import { PatchContent, PatchLayout, getPatchTocItems } from "@/components/features/patches";
 import { fetchPublishedPatchBySlug } from "@/services/patches";
 
 type PatchPageProps = {
@@ -35,14 +35,17 @@ export default async function PatchDetailsPage({ params }: PatchPageProps) {
     notFound();
   }
 
+  const tocItems = getPatchTocItems(patch.content_ru);
+
   return (
     <main className="ui-page ui-patches-layout">
-      <p className="ui-patch-meta">Published patch details</p>
-      <PatchContent
-        title={patch.title_ru}
-        publishedAt={patch.published_at}
-        content={patch.content_ru}
-      />
+      <PatchLayout tocItems={tocItems}>
+        <PatchContent
+          title={patch.title_ru}
+          publishedAt={patch.published_at}
+          content={patch.content_ru}
+        />
+      </PatchLayout>
     </main>
   );
 }
