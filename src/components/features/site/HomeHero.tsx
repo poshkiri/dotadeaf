@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 const headlineWords = ["Find", "your", "silent", "squad"];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -14,7 +14,7 @@ const containerVariants = {
   },
 };
 
-const wordVariants = {
+const wordVariants: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
@@ -23,7 +23,7 @@ const wordVariants = {
   },
 };
 
-const subtitleVariants = {
+const subtitleVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
@@ -32,7 +32,7 @@ const subtitleVariants = {
   },
 };
 
-const badgeVariants = {
+const badgeVariants: Variants = {
   hidden: { opacity: 0, y: -10, scale: 0.96 },
   visible: {
     opacity: 1,
@@ -42,7 +42,7 @@ const badgeVariants = {
   },
 };
 
-const infoRowVariants = {
+const infoRowVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -52,7 +52,7 @@ const infoRowVariants = {
   },
 };
 
-const infoItemVariants = {
+const infoItemVariants: Variants = {
   hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
