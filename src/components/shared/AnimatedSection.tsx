@@ -47,7 +47,7 @@ export function AnimatedSection({
   as = "div",
   variant,
 }: AnimatedSectionProps) {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   if (variant === "featureCards") {
@@ -78,7 +78,6 @@ export function AnimatedSection({
       variants,
       initial: "hidden",
       animate: isInView ? "visible" : "hidden",
-      style: variant === "heading" ? { willChange: "filter, opacity" } : undefined,
     },
     createElement(as, null, children),
   );
