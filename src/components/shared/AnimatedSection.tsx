@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, ElementType, ReactNode, createElement, useRef } from "react";
+import React, { Children, ElementType, ReactNode, createElement, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 type AnimatedSectionVariant = "heading" | "featureCards" | "cta";
