@@ -12,7 +12,7 @@ export function Navbar() {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <nav
-        className="flex items-center justify-between w-full max-w-3xl rounded-full border border-white/8 px-5 py-2.5"
+        className="flex items-center justify-between w-full max-w-3xl rounded-full border border-white/[0.08] px-5 py-2.5"
         style={{ background: "rgba(9,9,11,0.85)", backdropFilter: "blur(12px)" }}
       >
         <Link href="/" className="flex items-center gap-2 text-white font-semibold text-sm">
