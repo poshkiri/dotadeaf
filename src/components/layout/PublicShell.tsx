@@ -17,7 +17,7 @@ export async function PublicShell({ children }: PublicShellProps) {
 
   return (
     <div className="ui-public-shell">
-      <PublicNavbar isAuthenticated={Boolean(user)} />
+      <PublicNavbar />
 
       <SiteContainer>
         <div className="pt-20 md:pt-24">{children}</div>
