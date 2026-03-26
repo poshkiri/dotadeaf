@@ -129,6 +129,8 @@ export function HomeHero() {
           </motion.div>
         </motion.div>
       </motion.div>
+
+      <div className="ui-home-hero-fade" aria-hidden="true" />
     </section>
   );
 }

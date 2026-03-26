@@ -715,6 +715,7 @@ select:focus-visible {
   position: relative;
   width: 100vw;
   margin-left: calc(50% - 50vw);
+  min-height: 600px;
   overflow: clip;
   display: grid;
   gap: 1.1rem;
@@ -728,7 +729,7 @@ select:focus-visible {
     radial-gradient(100% 90% at 100% 0%, rgba(99, 102, 241, 0.16), transparent 56%),
     #09090b;
   box-shadow: 0 24px 54px rgba(3, 4, 8, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  padding: clamp(1.2rem, 1.9vw, 1.8rem);
+  padding: 120px clamp(1.2rem, 1.9vw, 1.8rem) clamp(1.2rem, 1.9vw, 1.8rem);
 }
 
 .ui-home-hero-ambient {
@@ -749,6 +750,16 @@ select:focus-visible {
   animation: ui-home-ambient 8s ease-in-out infinite;
 }
 
+.ui-home-hero-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #09090b);
+  pointer-events: none;
+}
+
 .ui-home-hero-main {
   position: relative;
   z-index: 1;
@@ -757,7 +768,7 @@ select:focus-visible {
 }
 
 .ui-home-hero-badge {
-  margin: 0;
+  margin: 0 0 8px;
   width: fit-content;
   display: inline-flex;
   align-items: center;
@@ -777,7 +788,7 @@ select:focus-visible {
   flex-wrap: wrap;
   gap: 0.42rem 0.56rem;
   color: #fafafa;
-  font-size: clamp(2rem, 4.6vw, 3.35rem);
+  font-size: clamp(48px, 6vw, 80px);
   line-height: 1.02;
   letter-spacing: -0.02em;
   max-width: 12ch;
@@ -796,7 +807,7 @@ select:focus-visible {
 
 .ui-home-hero-subtitle {
   margin: 0;
-  color: rgba(224, 225, 236, 0.8);
+  color: #d4d4d8;
   font-size: clamp(1rem, 1.35vw, 1.06rem);
   line-height: 1.52;
   max-width: 58ch;
@@ -1077,6 +1088,10 @@ select:focus-visible {
 }
 
 @media (min-width: 860px) {
+  .ui-home-hero {
+    min-height: 100vh;
+  }
+
   .ui-public-header-row {
     grid-template-columns: auto 1fr auto;
     align-items: center;
