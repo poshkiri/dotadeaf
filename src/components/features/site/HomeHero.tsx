@@ -72,7 +72,14 @@ export function HomeHero() {
         animate="visible"
         variants={containerVariants}
       >
-        <motion.p className="ui-home-hero-badge" variants={badgeVariants}>
+        <motion.p
+          className="ui-home-hero-badge"
+          variants={badgeVariants}
+          style={{
+            border: "1px solid rgba(192,57,43,0.35)",
+            boxShadow: "0 0 12px rgba(192,57,43,0.15)",
+          }}
+        >
           Built for deaf players • Dota 2
         </motion.p>
 

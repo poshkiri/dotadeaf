@@ -51,7 +51,7 @@ export function Navbar() {
               width: "8px",
               height: "8px",
               borderRadius: "50%",
-              background: "#7c3aed",
+              background: "linear-gradient(135deg, #c0392b, #e74c3c)",
               display: "inline-block",
               flexShrink: 0,
             }}
