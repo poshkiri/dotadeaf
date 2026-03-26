@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { PublicNavbar } from "./PublicNavbar";
+import { Navbar } from "./PublicNavbar";
 
 import { SiteContainer } from "./SiteContainer";
 
@@ -17,10 +17,10 @@ export async function PublicShell({ children }: PublicShellProps) {
 
   return (
     <div className="ui-public-shell">
-      <PublicNavbar />
+      <Navbar />
 
       <SiteContainer>
-        <div className="pt-20 md:pt-24">{children}</div>
+        <div className="pt-[80px]">{children}</div>
       </SiteContainer>
 
       <footer className="ui-public-footer">

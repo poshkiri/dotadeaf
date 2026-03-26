@@ -3,55 +3,32 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const baseLinks = [
-  { href: "/players", label: "Players" },
-  { href: "/patches", label: "Patches" },
-  { href: "/about", label: "About" },
-];
-
-const navTransition = { duration: 0.4, delay: 0.1, ease: "easeOut" as const };
-
-export function PublicNavbar() {
+export function Navbar() {
   return (
     <motion.header
+      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={navTransition}
-      className="fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-[720px] -translate-x-1/2"
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <div className="flex items-center justify-between rounded-full border border-white/10 bg-[rgba(9,9,11,0.8)] px-5 py-2.5 backdrop-blur-[12px]">
-        <Link href="/" className="inline-flex items-center gap-2 text-base font-semibold text-white">
-          <span className="text-violet-400">●</span>
-          <span>dotadeaf</span>
+      <nav
+        className="flex items-center justify-between w-full max-w-3xl rounded-full border border-white/8 px-5 py-2.5"
+        style={{ background: "rgba(9,9,11,0.85)", backdropFilter: "blur(12px)" }}
+      >
+        <Link href="/" className="flex items-center gap-2 text-white font-semibold text-sm">
+          <span className="w-2 h-2 rounded-full bg-violet-500 inline-block" />
+          dotadeaf
         </Link>
-
-        <nav aria-label="Public navigation" className="hidden items-center gap-6 md:flex">
-          {baseLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-zinc-400 transition-colors duration-200 hover:text-white"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-2 md:flex">
-          <Link
-            href="/login"
-            className="rounded-full border border-zinc-700 px-3 py-1.5 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:text-white"
-          >
-            Log in
-          </Link>
-          <Link
-            href="/register"
-            className="rounded-full bg-violet-600 px-4 py-1.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-violet-500"
-          >
-            Join
-          </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/players" className="text-zinc-400 hover:text-white text-sm transition-colors">Players</Link>
+          <Link href="/patches" className="text-zinc-400 hover:text-white text-sm transition-colors">Patches</Link>
+          <Link href="/about" className="text-zinc-400 hover:text-white text-sm transition-colors">About</Link>
         </div>
-      </div>
+        <div className="flex items-center gap-2">
+          <Link href="/login" className="text-zinc-400 hover:text-white text-sm transition-colors px-3 py-1.5">Log in</Link>
+          <Link href="/register" className="bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium px-4 py-1.5 rounded-full transition-colors">Join</Link>
+        </div>
+      </nav>
     </motion.header>
   );
 }
