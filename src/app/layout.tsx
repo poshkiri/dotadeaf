@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import "@/app/globals.css";
 import "@/styles/ui-foundations.css";
 
 export default function RootLayout({

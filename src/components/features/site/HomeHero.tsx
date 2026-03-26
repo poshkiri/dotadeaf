@@ -78,7 +78,11 @@ export function HomeHero() {
 
         <h1 className="ui-home-hero-title">
           {headlineWords.map((word) => (
-            <motion.span key={word} variants={wordVariants}>
+            <motion.span
+              key={word}
+              variants={wordVariants}
+              className={word === "silent" || word === "squad" ? "ui-home-hero-title-accent" : undefined}
+            >
               {word}
             </motion.span>
           ))}

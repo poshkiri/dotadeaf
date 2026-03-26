@@ -1,0 +1,28 @@
+:root {
+  --ui-bg: #09090b;
+  --ui-surface: #18181b;
+  --ui-surface-muted: #18181b;
+  --ui-border: #27272a;
+  --ui-border-strong: #27272a;
+  --ui-text: #fafafa;
+  --ui-text-muted: #a1a1aa;
+}
+
+html,
+body {
+  background: #09090b;
+}
+
+body {
+  color: var(--ui-text-muted);
+}
+
+.ui-heading-1,
+.ui-heading-2 {
+  color: var(--ui-text);
+}
+
+.ui-card {
+  background: var(--ui-surface);
+  border-color: var(--ui-border);
+}

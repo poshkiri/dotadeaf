@@ -8,7 +8,7 @@ export default function PublicHomePage() {
       <HomeHero />
 
       <section className="ui-public-value" aria-label="What users can do">
-        <AnimatedSection as="h2" className="ui-heading-2" variant="heading">
+        <AnimatedSection as="h2" className="ui-heading-2 ui-public-value-heading" variant="heading">
           How the platform helps in practice
         </AnimatedSection>
         <AnimatedSection className="ui-public-feature-grid" variant="featureCards">
