@@ -110,34 +110,34 @@ export function HomeHero() {
             Browse players
           </Link>
         </motion.div>
-      </motion.div>
 
-      <motion.div
-        className="ui-home-hero-side"
-        initial="hidden"
-        animate="visible"
-        variants={infoRowVariants}
-      >
-        <motion.p className="ui-home-hero-side-title" variants={infoItemVariants}>
-          Match with more context
-        </motion.p>
         <motion.div className="ui-home-hero-info-row" variants={infoRowVariants}>
           <motion.div className="ui-home-hero-info-item" variants={infoItemVariants}>
-            <span className="ui-home-hero-info-icon">◈</span>
+            <span>◈</span>
             <span>Role fit</span>
           </motion.div>
           <motion.div className="ui-home-hero-info-item" variants={infoItemVariants}>
-            <span className="ui-home-hero-info-icon">◉</span>
+            <span>◉</span>
             <span>Rank clarity</span>
           </motion.div>
           <motion.div className="ui-home-hero-info-item" variants={infoItemVariants}>
-            <span className="ui-home-hero-info-icon">◍</span>
+            <span>◍</span>
             <span>Region match</span>
           </motion.div>
         </motion.div>
       </motion.div>
-
-      <div className="ui-home-hero-fade" aria-hidden="true" />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "120px",
+          background: "linear-gradient(to bottom, transparent, #09090b)",
+          pointerEvents: "none",
+        }}
+      />
     </section>
   );
 }
