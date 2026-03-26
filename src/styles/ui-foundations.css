@@ -621,18 +621,7 @@ select:focus-visible {
 }
 
 .ui-public-page::before {
-  content: "";
-  position: absolute;
-  top: 0.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(100%, 68rem);
-  height: 24rem;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 18% 24%, rgba(31, 95, 143, 0.08), transparent 58%),
-    radial-gradient(circle at 78% 18%, rgba(28, 39, 51, 0.06), transparent 52%);
+  content: none;
 }
 
 .ui-public-hero {
@@ -925,10 +914,17 @@ select:focus-visible {
   display: grid;
   gap: 0.625rem;
   padding: 1.125rem;
+  background: #18181b;
+  border-color: #27272a;
 }
 
 .ui-public-feature-card .ui-heading-2 {
   font-size: 1.15rem;
+  color: #fafafa;
+}
+
+.ui-public-feature-card .ui-muted {
+  color: #a1a1aa;
 }
 
 .ui-public-value {
@@ -936,6 +932,7 @@ select:focus-visible {
   display: grid;
   gap: 1rem;
   padding-top: 0.35rem;
+  background: transparent;
 }
 
 .ui-public-value::before {
@@ -973,7 +970,16 @@ select:focus-visible {
 .ui-public-flow-card {
   display: grid;
   gap: 0.625rem;
-  border-color: var(--ui-border-strong);
+  border-color: #27272a;
+  background: #18181b;
+}
+
+.ui-public-flow-card .ui-heading-2 {
+  color: #fafafa;
+}
+
+.ui-public-flow-card .ui-muted {
+  color: #a1a1aa;
 }
 
 .ui-public-footer {

@@ -10,11 +10,11 @@
 
 html,
 body {
-  background: #09090b;
+  background-color: #09090b;
 }
 
 body {
-  color: var(--ui-text-muted);
+  color: #fafafa;
 }
 
 .ui-heading-1,
