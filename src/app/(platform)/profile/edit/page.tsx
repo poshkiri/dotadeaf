@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { enforcePlatformRouteAccess } from "@/services/auth/routeProtection";
 import { ProfileEditForm } from "@/components/forms/profile";
 import { getProfileForViewByUserId } from "@/services/profile/readProfile";
@@ -18,6 +19,7 @@ type EditProfilePageProps = {
 export default async function EditProfilePage({
   searchParams,
 }: EditProfilePageProps) {
+  const t = await getTranslations();
   const { user } = await enforcePlatformRouteAccess({ allowIncompleteProfile: true });
   const profile = await getProfileForViewByUserId(user.id);
 
@@ -78,16 +80,16 @@ export default async function EditProfilePage({
 
   const formError =
     searchParams?.error === "validation"
-      ? "Please correct the highlighted profile fields and try again."
+      ? t("platform.edit_validation_error")
       : searchParams?.error === "save"
-        ? "Profile could not be saved. Please try again."
+        ? t("platform.edit_save_error")
         : undefined;
 
   return (
     <main className="ui-page ui-platform-page">
       <header className="ui-section">
-        <h1 className="ui-heading-1">Edit profile</h1>
-        <p className="ui-muted">Update your MVP profile information.</p>
+        <h1 className="ui-heading-1">{t("platform.edit_title")}</h1>
+        <p className="ui-muted">{t("platform.edit_subtitle")}</p>
       </header>
       <ProfileEditForm
         initialValues={initialValues}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type GoogleSignInButtonProps = {
@@ -17,9 +18,10 @@ function resolveSafeNextPath(value: string): string {
 }
 
 export function GoogleSignInButton({
-  label = "Sign in with Google",
+  label,
   nextPath = "/dashboard",
 }: GoogleSignInButtonProps) {
+  const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
@@ -39,10 +41,10 @@ export function GoogleSignInButton({
       });
 
       if (error) {
-        setErrorMessage("Google sign-in failed. Please try again.");
+        setErrorMessage(t("auth_form.google_failed"));
       }
     } catch {
-      setErrorMessage("Google sign-in failed. Please try again.");
+      setErrorMessage(t("auth_form.google_failed"));
     } finally {
       setIsLoading(false);
     }
@@ -51,7 +53,7 @@ export function GoogleSignInButton({
   return (
     <div className="ui-form">
       <button type="button" onClick={handleGoogleSignIn} disabled={isLoading}>
-        {isLoading ? "Redirecting..." : label}
+        {isLoading ? t("auth_form.redirecting") : (label ?? t("auth_page.login_google"))}
       </button>
       <p role="alert" aria-live="polite" className="ui-field-error">
         {errorMessage ?? ""}

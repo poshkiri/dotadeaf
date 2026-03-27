@@ -2,28 +2,31 @@ import {
   GoogleSignInButton,
   LoginForm,
 } from "@/components/forms/auth";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const t = await getTranslations();
+
   return (
     <main className="ui-auth-page">
-      <section className="ui-auth-panel" aria-label="Login panel">
+      <section className="ui-auth-panel" aria-label={t("auth_page.login_panel")}>
         <header className="ui-auth-header">
-          <h1 className="ui-heading-1">Welcome back</h1>
-          <p className="ui-muted">Sign in to continue to your account.</p>
+          <h1 className="ui-heading-1">{t("auth_page.login_title")}</h1>
+          <p className="ui-muted">{t("auth_page.login_subtitle")}</p>
         </header>
 
         <LoginForm />
 
         <hr className="ui-divider" />
 
-        <section aria-label="Alternative sign-in options" className="ui-section ui-card">
-          <h2 className="ui-heading-2">Or continue with</h2>
-          <GoogleSignInButton label="Sign in with Google" />
+        <section aria-label={t("auth_page.or_continue")} className="ui-section ui-card">
+          <h2 className="ui-heading-2">{t("auth_page.or_continue")}</h2>
+          <GoogleSignInButton label={t("auth_page.login_google")} />
         </section>
 
         <p className="ui-muted">
-          Do not have an account? <Link href="/register">Create one</Link>
+          {t("auth_page.no_account")} <Link href="/register">{t("auth_page.create_one")}</Link>
         </p>
       </section>
     </main>

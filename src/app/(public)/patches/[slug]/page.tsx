@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { PatchContent, PatchLayout, getPatchTocItems } from "@/components/features/patches";
 import { fetchPublishedPatchBySlug } from "@/services/patches";
 
@@ -12,19 +13,20 @@ type PatchPageProps = {
 export async function generateMetadata({
   params,
 }: PatchPageProps): Promise<Metadata> {
+  const t = await getTranslations();
   const patch = await fetchPublishedPatchBySlug(params.slug);
 
   if (!patch) {
     return {
-      title: "Patch not found",
-      description: "The requested patch is unavailable.",
+      title: t("patches.not_found_title"),
+      description: t("patches.not_found_desc"),
       robots: { index: false, follow: false },
     };
   }
 
   return {
     title: patch.title_ru,
-    description: `Russian-language Dota 2 patch details: ${patch.title_ru}`,
+    description: t("patches.meta_desc", { title: patch.title_ru }),
   };
 }
 

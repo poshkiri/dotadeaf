@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { useRouter } from "@/i18n/navigation";
 import { AuthFormField } from "./AuthFormField";
 import { AuthFormMessage } from "./AuthFormMessage";
 
@@ -17,6 +18,7 @@ export function LoginForm({
   emailError,
   passwordError,
 }: LoginFormProps) {
+  const t = useTranslations();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState(formError);
@@ -34,8 +36,8 @@ export function LoginForm({
     const password = String(formData.get("password") ?? "");
 
     const nextFieldErrors = {
-      email: email ? undefined : "Email is required.",
-      password: password ? undefined : "Password is required.",
+      email: email ? undefined : t("auth_form.email_required"),
+      password: password ? undefined : t("auth_form.password_required"),
     };
 
     setFieldErrors(nextFieldErrors);
@@ -54,14 +56,14 @@ export function LoginForm({
       });
 
       if (error) {
-        setFormMessage("Invalid email or password. Please try again.");
+        setFormMessage(t("auth_form.invalid_credentials"));
         return;
       }
 
       router.push("/dashboard");
       router.refresh();
     } catch {
-      setFormMessage("Login failed. Please try again.");
+      setFormMessage(t("auth_form.login_failed"));
     } finally {
       setIsSubmitting(false);
     }
@@ -72,7 +74,7 @@ export function LoginForm({
       <AuthFormMessage message={formMessage} />
       <AuthFormField
         id="login-email"
-        label="Email"
+        label={t("auth_form.email")}
         type="email"
         name="email"
         autoComplete="email"
@@ -81,7 +83,7 @@ export function LoginForm({
       />
       <AuthFormField
         id="login-password"
-        label="Password"
+        label={t("auth_form.password")}
         type="password"
         name="password"
         autoComplete="current-password"
@@ -89,7 +91,7 @@ export function LoginForm({
         error={fieldErrors.password}
       />
       <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Signing in..." : "Log in"}
+        {isSubmitting ? t("auth_form.signing_in") : t("auth_form.login")}
       </button>
     </form>
   );

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { getTranslations } from "next-intl/server";
 
 import { SiteContainer } from "./SiteContainer";
 
@@ -6,7 +7,9 @@ type PlatformShellProps = {
   children: ReactNode;
 };
 
-export function PlatformShell({ children }: PlatformShellProps) {
+export async function PlatformShell({ children }: PlatformShellProps) {
+  const t = await getTranslations();
+
   return (
     <div className="ui-platform-shell">
       <SiteContainer>
@@ -16,7 +19,7 @@ export function PlatformShell({ children }: PlatformShellProps) {
       <footer className="ui-platform-footer">
         <SiteContainer>
           <p className="ui-muted">
-            Keep your profile up to date to improve player discovery and messaging.
+            {t("platform.footer_hint")}
           </p>
         </SiteContainer>
       </footer>

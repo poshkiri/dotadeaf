@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { AuthFormField } from "./AuthFormField";
 import { AuthFormMessage } from "./AuthFormMessage";
@@ -18,6 +19,7 @@ export function RegisterForm({
   passwordError,
   confirmPasswordError,
 }: RegisterFormProps) {
+  const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState(formError);
   const [fieldErrors, setFieldErrors] = useState({
@@ -36,15 +38,15 @@ export function RegisterForm({
     const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
     const nextFieldErrors = {
-      email: email ? undefined : "Email is required.",
-      password: password ? undefined : "Password is required.",
+      email: email ? undefined : t("auth_form.email_required"),
+      password: password ? undefined : t("auth_form.password_required"),
       confirmPassword: confirmPassword
         ? undefined
-        : "Please confirm your password.",
+        : t("auth_form.confirm_password_required"),
     };
 
     if (!nextFieldErrors.password && password !== confirmPassword) {
-      nextFieldErrors.confirmPassword = "Passwords do not match.";
+      nextFieldErrors.confirmPassword = t("auth_form.password_mismatch");
     }
 
     setFieldErrors(nextFieldErrors);
@@ -67,16 +69,16 @@ export function RegisterForm({
       });
 
       if (error) {
-        setFormMessage("Registration failed. Please try again.");
+        setFormMessage(t("auth_form.registration_failed"));
         return;
       }
 
       form.reset();
       setFormMessage(
-        "Account created. Please check your email to confirm registration.",
+        t("auth_form.registration_success"),
       );
     } catch {
-      setFormMessage("Registration failed. Please try again.");
+      setFormMessage(t("auth_form.registration_failed"));
     } finally {
       setIsSubmitting(false);
     }
@@ -87,7 +89,7 @@ export function RegisterForm({
       <AuthFormMessage message={formMessage} />
       <AuthFormField
         id="register-email"
-        label="Email"
+        label={t("auth_form.email")}
         type="email"
         name="email"
         autoComplete="email"
@@ -96,7 +98,7 @@ export function RegisterForm({
       />
       <AuthFormField
         id="register-password"
-        label="Password"
+        label={t("auth_form.password")}
         type="password"
         name="password"
         autoComplete="new-password"
@@ -105,7 +107,7 @@ export function RegisterForm({
       />
       <AuthFormField
         id="register-confirm-password"
-        label="Confirm password"
+        label={t("auth_form.confirm_password")}
         type="password"
         name="confirmPassword"
         autoComplete="new-password"
@@ -113,7 +115,7 @@ export function RegisterForm({
         error={fieldErrors.confirmPassword}
       />
       <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Creating account..." : "Create account"}
+        {isSubmitting ? t("auth_form.creating_account") : t("auth_form.create_account")}
       </button>
     </form>
   );

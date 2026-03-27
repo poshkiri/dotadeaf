@@ -2,6 +2,7 @@ import type {
   MvpProfileFormErrors,
   MvpProfileFormValues,
 } from "@/services/profile/validation";
+import { getTranslations } from "next-intl/server";
 
 type MvpProfileFormProps = {
   initialValues: MvpProfileFormValues;
@@ -19,21 +20,23 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function MvpProfileForm({
+export async function MvpProfileForm({
   initialValues,
   errors,
   formError,
-  submitLabel = "Save profile",
+  submitLabel,
   action,
 }: MvpProfileFormProps) {
+  const t = await getTranslations();
+
   return (
     <form action={action} className="ui-form ui-card">
       <FieldError id="profile-form-error" message={formError} />
 
-      <section className="ui-form-section" aria-label="Core profile details">
-        <h2 className="ui-form-section-title">Core profile details</h2>
+      <section className="ui-form-section" aria-label={t("platform.core_details")}>
+        <h2 className="ui-form-section-title">{t("platform.core_details")}</h2>
         <div className="ui-field">
-          <label htmlFor="profile-display-name">Display name</label>
+          <label htmlFor="profile-display-name">{t("platform.display_name")}</label>
           <input
             id="profile-display-name"
             name="display_name"
@@ -47,7 +50,7 @@ export function MvpProfileForm({
         </div>
 
         <div className="ui-field">
-          <label htmlFor="profile-dota-nickname">Dota nickname</label>
+          <label htmlFor="profile-dota-nickname">{t("platform.dota_nickname")}</label>
           <input
             id="profile-dota-nickname"
             name="dota_nickname"
@@ -64,7 +67,7 @@ export function MvpProfileForm({
         </div>
 
         <div className="ui-field">
-          <label htmlFor="profile-rank">Rank</label>
+          <label htmlFor="profile-rank">{t("platform.rank")}</label>
           <input
             id="profile-rank"
             name="rank"
@@ -80,10 +83,10 @@ export function MvpProfileForm({
 
       <hr className="ui-divider" />
 
-      <section className="ui-form-section" aria-label="Play preferences">
-        <h2 className="ui-form-section-title">Play preferences</h2>
+      <section className="ui-form-section" aria-label={t("platform.play_preferences")}>
+        <h2 className="ui-form-section-title">{t("platform.play_preferences")}</h2>
         <div className="ui-field">
-          <label htmlFor="profile-preferred-roles">Preferred roles</label>
+          <label htmlFor="profile-preferred-roles">{t("platform.preferred_roles")}</label>
           <input
             id="profile-preferred-roles"
             name="preferred_roles"
@@ -94,7 +97,7 @@ export function MvpProfileForm({
             aria-describedby="profile-preferred-roles-help profile-preferred-roles-error"
           />
           <p id="profile-preferred-roles-help" className="ui-muted">
-            Use comma-separated values.
+            {t("platform.preferred_roles_help")}
           </p>
           <FieldError
             id="profile-preferred-roles-error"
@@ -103,7 +106,7 @@ export function MvpProfileForm({
         </div>
 
         <div className="ui-field">
-          <label htmlFor="profile-language">Language</label>
+          <label htmlFor="profile-language">{t("platform.language")}</label>
           <input
             id="profile-language"
             name="language"
@@ -117,7 +120,7 @@ export function MvpProfileForm({
         </div>
 
         <div className="ui-field">
-          <label htmlFor="profile-region">Region</label>
+          <label htmlFor="profile-region">{t("platform.region")}</label>
           <input
             id="profile-region"
             name="region"
@@ -133,10 +136,10 @@ export function MvpProfileForm({
 
       <hr className="ui-divider" />
 
-      <section className="ui-form-section" aria-label="Additional details">
-        <h2 className="ui-form-section-title">Additional details</h2>
+      <section className="ui-form-section" aria-label={t("platform.additional_details")}>
+        <h2 className="ui-form-section-title">{t("platform.additional_details")}</h2>
         <div className="ui-field">
-          <label htmlFor="profile-bio">Bio</label>
+          <label htmlFor="profile-bio">{t("platform.bio")}</label>
           <textarea
             id="profile-bio"
             name="bio"
@@ -158,7 +161,7 @@ export function MvpProfileForm({
               aria-invalid={Boolean(errors?.looking_for_team)}
               aria-describedby="profile-looking-for-team-error"
             />
-            <label htmlFor="profile-looking-for-team">Looking for team</label>
+            <label htmlFor="profile-looking-for-team">{t("platform.looking_yes")}</label>
           </div>
           <FieldError
             id="profile-looking-for-team-error"
@@ -167,7 +170,7 @@ export function MvpProfileForm({
         </div>
       </section>
 
-      <button type="submit">{submitLabel}</button>
+      <button type="submit">{submitLabel ?? t("platform.save_profile")}</button>
     </form>
   );
 }

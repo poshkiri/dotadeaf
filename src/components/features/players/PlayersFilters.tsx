@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 type PlayersFilterValues = {
   rank?: string;
   preferredRole?: string;
@@ -23,7 +25,7 @@ function selectValue(value: string | undefined): string {
   return value ?? "";
 }
 
-export function PlayersFilters({
+export async function PlayersFilters({
   values,
   actionPath = DEFAULT_ACTION_PATH,
   rankOptions = [],
@@ -32,41 +34,41 @@ export function PlayersFilters({
   regionOptions = [],
   includeTextSearch = true,
 }: PlayersFiltersProps) {
+  const t = await getTranslations();
+
   return (
     <form
       method="get"
       action={actionPath}
-      aria-label="Player filters"
+      aria-label={t("player_filters.form_aria")}
       className="ui-form ui-card"
     >
       <fieldset className="ui-form-section">
-        <legend>Filters</legend>
-        <p className="ui-muted">
-          Refine results by rank, role, language, region, and team status.
-        </p>
+        <legend>{t("player_filters.legend")}</legend>
+        <p className="ui-muted">{t("player_filters.desc")}</p>
 
         <div className="ui-filter-grid">
           {includeTextSearch ? (
             <div className="ui-field">
-              <label htmlFor="players-query">Search</label>
+              <label htmlFor="players-query">{t("player_filters.search")}</label>
               <input
                 id="players-query"
                 name="query"
                 type="search"
                 defaultValue={values?.query ?? ""}
-                placeholder="Display name or Dota nickname"
+                placeholder={t("player_filters.search_placeholder")}
               />
             </div>
           ) : null}
 
           <div className="ui-field">
-            <label htmlFor="players-rank">Rank</label>
+            <label htmlFor="players-rank">{t("player_filters.rank")}</label>
             <select
               id="players-rank"
               name="rank"
               defaultValue={selectValue(values?.rank)}
             >
-              <option value="">Any rank</option>
+              <option value="">{t("player_filters.any_rank")}</option>
               {rankOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -76,13 +78,13 @@ export function PlayersFilters({
           </div>
 
           <div className="ui-field">
-            <label htmlFor="players-role">Preferred role</label>
+            <label htmlFor="players-role">{t("player_filters.role")}</label>
             <select
               id="players-role"
               name="preferredRole"
               defaultValue={selectValue(values?.preferredRole)}
             >
-              <option value="">Any role</option>
+              <option value="">{t("player_filters.any_role")}</option>
               {preferredRoleOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -92,13 +94,13 @@ export function PlayersFilters({
           </div>
 
           <div className="ui-field">
-            <label htmlFor="players-language">Language</label>
+            <label htmlFor="players-language">{t("player_filters.language")}</label>
             <select
               id="players-language"
               name="language"
               defaultValue={selectValue(values?.language)}
             >
-              <option value="">Any language</option>
+              <option value="">{t("player_filters.any_language")}</option>
               {languageOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -108,13 +110,13 @@ export function PlayersFilters({
           </div>
 
           <div className="ui-field">
-            <label htmlFor="players-region">Region</label>
+            <label htmlFor="players-region">{t("player_filters.region")}</label>
             <select
               id="players-region"
               name="region"
               defaultValue={selectValue(values?.region)}
             >
-              <option value="">Any region</option>
+              <option value="">{t("player_filters.any_region")}</option>
               {regionOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -124,22 +126,22 @@ export function PlayersFilters({
           </div>
 
           <div className="ui-field">
-            <label htmlFor="players-looking-for-team">Looking for team</label>
+            <label htmlFor="players-looking-for-team">{t("player_filters.looking")}</label>
             <select
               id="players-looking-for-team"
               name="lookingForTeam"
               defaultValue={values?.lookingForTeam ?? ""}
             >
-              <option value="">Any status</option>
-              <option value="true">Looking for team</option>
-              <option value="false">Not looking for team</option>
+              <option value="">{t("player_filters.any_status")}</option>
+              <option value="true">{t("player_filters.looking_yes")}</option>
+              <option value="false">{t("player_filters.looking_no")}</option>
             </select>
           </div>
         </div>
 
         <div className="ui-inline-actions">
-          <button type="submit">Apply filters</button>
-          <a href={actionPath}>Clear filters</a>
+          <button type="submit">{t("player_filters.apply")}</button>
+          <a href={actionPath}>{t("player_filters.clear")}</a>
         </div>
       </fieldset>
     </form>

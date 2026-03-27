@@ -3,7 +3,8 @@ import { MessageInput, MessageList } from "@/components/features/chat";
 import { fetchConversationMessages, sendMessage } from "@/services/chat";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 type MessageThreadPageProps = {
   params: {
@@ -14,6 +15,7 @@ type MessageThreadPageProps = {
 export default async function MessageThreadPage({
   params,
 }: MessageThreadPageProps) {
+  const t = await getTranslations();
   const { user } = await enforcePlatformRouteAccess();
   const conversationId = params.id;
   let messages;
@@ -35,7 +37,7 @@ export default async function MessageThreadPage({
     const body = String(formData.get("body") ?? "");
 
     if (!postedConversationId || postedConversationId !== conversationId) {
-      throw new Error("Invalid conversation id.");
+      throw new Error(t("platform.invalid_conversation_id"));
     }
 
     await sendMessage({
@@ -58,18 +60,18 @@ export default async function MessageThreadPage({
   return (
     <main className="ui-page ui-platform-page ui-messages-layout">
       <header className="ui-messages-header">
-        <h1 className="ui-heading-1">Conversation</h1>
-        <p className="ui-muted">Read the thread and continue messaging.</p>
+        <h1 className="ui-heading-1">{t("platform.conversation_title")}</h1>
+        <p className="ui-muted">{t("platform.conversation_subtitle")}</p>
         <p>
-          <Link href="/messages">Back to all conversations</Link>
+          <Link href="/messages">{t("platform.back_to_conversations")}</Link>
         </p>
       </header>
 
-      <section aria-label="Conversation messages" className="ui-section">
+      <section aria-label={t("platform.conversation_messages")} className="ui-section">
         <MessageList messages={messageItems} currentUserId={user.id} />
       </section>
 
-      <section aria-label="Send message" className="ui-section">
+      <section aria-label={t("platform.send_message")} className="ui-section">
         <MessageInput conversationId={conversationId} action={sendMessageAction} />
       </section>
     </main>

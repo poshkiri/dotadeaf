@@ -1,10 +1,5 @@
-import Link from "next/link";
-
-const DATE_FORMATTER = new Intl.DateTimeFormat("ru-RU", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export type PatchListItem = {
   slug: string;
@@ -19,36 +14,44 @@ type PatchListProps = {
   emptyStateText?: string;
 };
 
-function formatPatchDate(value: string | null): string {
+function formatPatchDate(value: string | null, locale: string, fallback: string): string {
   if (!value) {
-    return "Date not specified";
+    return fallback;
   }
 
   const parsedDate = new Date(value);
   if (Number.isNaN(parsedDate.getTime())) {
-    return "Date not specified";
+    return fallback;
   }
 
-  return DATE_FORMATTER.format(parsedDate);
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(parsedDate);
 }
 
 export function PatchList({
   patches,
   detailBasePath = "/patches",
-  emptyStateText = "No published patches yet.",
+  emptyStateText,
 }: PatchListProps) {
+  const t = useTranslations();
+  const locale = useLocale();
+  const resolvedEmpty = emptyStateText ?? t("patches.empty");
+
   if (patches.length === 0) {
     return (
       <section aria-label="Patches list" className="ui-card ui-section">
-        <h2 className="ui-heading-2">Published patches</h2>
-        <p className="ui-muted">{emptyStateText}</p>
+        <h2 className="ui-heading-2">{t("patches.published_title")}</h2>
+        <p className="ui-muted">{resolvedEmpty}</p>
       </section>
     );
   }
 
   return (
     <section aria-label="Patches list" className="ui-section">
-      <h2 className="ui-heading-2">Published patches</h2>
+      <h2 className="ui-heading-2">{t("patches.published_title")}</h2>
       <ul className="ui-list">
         {patches.map((patch) => (
           <li key={patch.slug}>
@@ -61,7 +64,7 @@ export function PatchList({
               <p className="ui-patches-list-summary">{patch.summary}</p>
               <p className="ui-patches-list-meta">
                 <time dateTime={patch.publishedAt ?? undefined}>
-                  {formatPatchDate(patch.publishedAt)}
+                  {formatPatchDate(patch.publishedAt, locale, t("patches.date_missing"))}
                 </time>
               </p>
             </article>

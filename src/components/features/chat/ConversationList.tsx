@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const MESSAGE_PREVIEW_LENGTH = 80;
 
@@ -17,10 +18,10 @@ type ConversationListProps = {
   emptyStateText?: string;
 };
 
-function getMessagePreview(messageBody: string | null): string {
+function getMessagePreview(messageBody: string | null, fallback: string): string {
   const trimmedBody = messageBody?.trim();
   if (!trimmedBody) {
-    return "No messages yet.";
+    return fallback;
   }
 
   if (trimmedBody.length <= MESSAGE_PREVIEW_LENGTH) {
@@ -30,7 +31,7 @@ function getMessagePreview(messageBody: string | null): string {
   return `${trimmedBody.slice(0, MESSAGE_PREVIEW_LENGTH).trimEnd()}...`;
 }
 
-function formatConversationTime(value: string | null | undefined): string {
+function formatConversationTime(value: string | null | undefined, locale: string): string {
   if (!value) {
     return "";
   }
@@ -40,7 +41,7 @@ function formatConversationTime(value: string | null | undefined): string {
     return "";
   }
 
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(locale, {
     month: "short",
     day: "numeric",
     hour: "2-digit",
@@ -50,18 +51,22 @@ function formatConversationTime(value: string | null | undefined): string {
 
 export function ConversationList({
   conversations,
-  emptyStateText = "No conversations yet.",
+  emptyStateText,
 }: ConversationListProps) {
+  const t = useTranslations();
+  const locale = useLocale();
+  const resolvedEmpty = emptyStateText ?? t("platform.no_conversations");
+
   if (conversations.length === 0) {
     return (
-      <section aria-label="Conversations">
-        <p>{emptyStateText}</p>
+      <section aria-label={t("platform.conversation_list")}>
+        <p>{resolvedEmpty}</p>
       </section>
     );
   }
 
   return (
-    <section aria-label="Conversations">
+    <section aria-label={t("platform.conversation_list")}>
       <ul className="ui-list">
         {conversations.map((conversation) => (
           <li key={conversation.id}>
@@ -72,11 +77,11 @@ export function ConversationList({
               <div className="ui-conversation-list-head">
                 <strong>{conversation.otherParticipant.displayName}</strong>
                 <span className="ui-message-time">
-                  {formatConversationTime(conversation.lastMessageAt)}
+                  {formatConversationTime(conversation.lastMessageAt, locale)}
                 </span>
               </div>
               <p className="ui-conversation-preview">
-                {getMessagePreview(conversation.lastMessageBody)}
+                {getMessagePreview(conversation.lastMessageBody, t("platform.no_messages"))}
               </p>
             </Link>
           </li>

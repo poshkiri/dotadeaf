@@ -1,8 +1,4 @@
-const DATE_FORMATTER = new Intl.DateTimeFormat("ru-RU", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+import { useLocale, useTranslations } from "next-intl";
 
 type PatchContentProps = {
   title: string;
@@ -21,17 +17,21 @@ export type PatchTocItem = {
   label: string;
 };
 
-function formatPatchDate(value: string | null): string {
+function formatPatchDate(value: string | null, locale: string, fallback: string): string {
   if (!value) {
-    return "Date not specified";
+    return fallback;
   }
 
   const parsedDate = new Date(value);
   if (Number.isNaN(parsedDate.getTime())) {
-    return "Date not specified";
+    return fallback;
   }
 
-  return DATE_FORMATTER.format(parsedDate);
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(parsedDate);
 }
 
 function toContentBlocks(content: string): ContentBlock[] {
@@ -156,6 +156,8 @@ function resolveDiffRowTone(item: string): string {
 }
 
 export function PatchContent({ title, publishedAt, content }: PatchContentProps) {
+  const t = useTranslations();
+  const locale = useLocale();
   const blocks = toContentBlocks(content);
 
   return (
@@ -165,7 +167,9 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
           {title}
         </h1>
         <p className="mt-2 text-sm text-zinc-400">
-          <time dateTime={publishedAt ?? undefined}>{formatPatchDate(publishedAt)}</time>
+          <time dateTime={publishedAt ?? undefined}>
+            {formatPatchDate(publishedAt, locale, t("patches.date_missing"))}
+          </time>
         </p>
       </header>
 

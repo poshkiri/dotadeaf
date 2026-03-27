@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export type MvpPlayerCardData = {
   id?: string;
@@ -75,20 +76,21 @@ function getRankTheme(rank: string | null): { ring: string; badge: string } {
 }
 
 function compactText(value: string | null): string {
-  if (!value) return "Not specified";
+  if (!value) return "";
   const trimmed = value.trim();
-  return trimmed.length > 0 ? trimmed : "Not specified";
+  return trimmed.length > 0 ? trimmed : "";
 }
 
 export function PlayerCard({ player }: PlayerCardProps) {
+  const t = useTranslations();
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const rankTheme = useMemo(() => getRankTheme(player.rank), [player.rank]);
   const showAction = isHovered || isFocused;
-  const displayNickname = compactText(player.dota_nickname);
-  const displayRank = compactText(player.rank);
-  const language = compactText(player.language);
-  const region = compactText(player.region);
+  const displayNickname = compactText(player.dota_nickname) || t("common.not_specified");
+  const displayRank = compactText(player.rank) || t("common.not_specified");
+  const language = compactText(player.language) || t("common.not_specified");
+  const region = compactText(player.region) || t("common.not_specified");
   const isOnline = player.is_online ?? true;
   const chatHref = player.chat_href ?? "/login";
 
@@ -113,7 +115,7 @@ export function PlayerCard({ player }: PlayerCardProps) {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={player.avatar_url}
-                alt={`${player.display_name} avatar`}
+                alt={t("player_card.avatar_alt", { name: player.display_name })}
                 className="h-full w-full rounded-full object-cover"
               />
             ) : (
@@ -122,8 +124,8 @@ export function PlayerCard({ player }: PlayerCardProps) {
             {isOnline ? (
               <span
                 className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-zinc-900 bg-emerald-400 animate-pulse"
-                aria-label="Online"
-                title="Online"
+                aria-label={t("player_card.online")}
+                title={t("player_card.online")}
               />
             ) : null}
           </div>
@@ -151,7 +153,7 @@ export function PlayerCard({ player }: PlayerCardProps) {
           ))
         ) : (
           <span className="inline-flex rounded-full border border-zinc-700 bg-zinc-800/70 px-2 py-1 text-xs text-zinc-400">
-            Role not specified
+            {t("player_card.role_not_specified")}
           </span>
         )}
         <span className="inline-flex rounded-full border border-zinc-700 bg-zinc-800/70 px-2 py-1 text-xs text-zinc-300">
@@ -166,7 +168,9 @@ export function PlayerCard({ player }: PlayerCardProps) {
         <span
           className={`text-xs ${player.looking_for_team ? "text-emerald-300" : "text-zinc-400"}`}
         >
-          {player.looking_for_team ? "Looking for team" : "Not looking for team"}
+          {player.looking_for_team
+            ? t("player_card.looking_yes")
+            : t("player_card.looking_no")}
         </span>
 
         <AnimatePresence initial={false}>
@@ -182,7 +186,7 @@ export function PlayerCard({ player }: PlayerCardProps) {
                 href={chatHref}
                 className="inline-flex rounded-md border border-violet-400/60 bg-violet-500/20 px-3 py-1.5 text-sm font-medium text-violet-200 transition-colors hover:bg-violet-500/30"
               >
-                Start chat
+                {t("player_card.start_chat")}
               </Link>
             </motion.div>
           ) : null}

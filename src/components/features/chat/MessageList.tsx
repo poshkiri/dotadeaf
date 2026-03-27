@@ -1,11 +1,5 @@
 import { Badge } from "@/components/ui/Badge";
-
-const DATE_TIME_FORMATTER = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-});
+import { useLocale, useTranslations } from "next-intl";
 
 export type MessageListItem = {
   id: string;
@@ -20,30 +14,39 @@ type MessageListProps = {
   emptyStateText?: string;
 };
 
-function formatMessageTimestamp(value: string): string {
+function formatMessageTimestamp(value: string, locale: string): string {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
     return "";
   }
 
-  return DATE_TIME_FORMATTER.format(date);
+  return new Intl.DateTimeFormat(locale, {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
 }
 
 export function MessageList({
   messages,
   currentUserId,
-  emptyStateText = "No messages yet.",
+  emptyStateText,
 }: MessageListProps) {
+  const t = useTranslations();
+  const locale = useLocale();
+  const resolvedEmpty = emptyStateText ?? t("platform.no_messages");
+
   if (messages.length === 0) {
     return (
-      <section aria-label="Messages">
-        <p>{emptyStateText}</p>
+      <section aria-label={t("platform.conversation_messages")}>
+        <p>{resolvedEmpty}</p>
       </section>
     );
   }
 
   return (
-    <section aria-label="Messages">
+    <section aria-label={t("platform.conversation_messages")}>
       <ul className="ui-list">
         {messages.map((message) => {
           const isCurrentUserMessage = message.senderUserId === currentUserId;
@@ -59,10 +62,10 @@ export function MessageList({
               <article className={bubbleClassName}>
                 <div className="ui-message-meta">
                   <Badge tone={isCurrentUserMessage ? "default" : "muted"}>
-                    {isCurrentUserMessage ? "You" : "Other user"}
+                    {isCurrentUserMessage ? t("platform.you") : t("platform.other_user")}
                   </Badge>
                   <time dateTime={message.createdAt} className="ui-message-time">
-                    {formatMessageTimestamp(message.createdAt)}
+                    {formatMessageTimestamp(message.createdAt, locale)}
                   </time>
                 </div>
                 <p className="ui-message-body">{message.body}</p>

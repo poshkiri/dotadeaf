@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export type PatchTocItem = {
   id: string;
@@ -14,6 +15,7 @@ type PatchLayoutProps = {
 };
 
 export function PatchLayout({ children, tocItems }: PatchLayoutProps) {
+  const t = useTranslations();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -34,12 +36,12 @@ export function PatchLayout({ children, tocItems }: PatchLayoutProps) {
         <aside className="hidden lg:block">
           <div className="sticky top-24 rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 backdrop-blur-sm">
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-zinc-400">
-              Heroes
+              {t("patches.toc_title")}
             </p>
             {tocItems.length === 0 ? (
-              <p className="text-sm text-zinc-500">No section anchors</p>
+              <p className="text-sm text-zinc-500">{t("patches.toc_empty")}</p>
             ) : (
-              <nav aria-label="Patch table of contents" className="flex flex-col gap-2">
+              <nav aria-label={t("patches.toc_aria")} className="flex flex-col gap-2">
                 {tocItems.map((item) => (
                   <a
                     key={item.id}

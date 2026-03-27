@@ -1,8 +1,15 @@
 "use client";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
 export function Navbar() {
+  const t = useTranslations();
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+  const nextLocale = locale === "ru" ? "en" : "ru";
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -12 }}
@@ -56,14 +63,14 @@ export function Navbar() {
               flexShrink: 0,
             }}
           />
-          dotadeaf
+          {t("common.brand")}
         </Link>
 
         <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
           {[
-            { href: "/players", label: "Players" },
-            { href: "/patches", label: "Patches" },
-            { href: "/about", label: "About" },
+            { href: "/players", label: t("nav.players") },
+            { href: "/patches", label: t("nav.patches") },
+            { href: "/about", label: t("nav.about") },
           ].map(({ href, label }) => (
             <Link
               key={href}
@@ -83,6 +90,25 @@ export function Navbar() {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <button
+            type="button"
+            onClick={() => router.replace(pathname, { locale: nextLocale })}
+            style={{
+              border: "1px solid rgba(255,255,255,0.15)",
+              borderRadius: "9999px",
+              background: "transparent",
+              color: "#a1a1aa",
+              fontSize: "12px",
+              padding: "4px 10px",
+              transition: "color 0.15s",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
+            aria-label={`Switch language to ${nextLocale.toUpperCase()}`}
+          >
+            {locale.toUpperCase()}
+          </button>
           <Link
             href="/login"
             style={{
@@ -95,7 +121,7 @@ export function Navbar() {
             onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
           >
-            Log in
+            {t("nav.login")}
           </Link>
           <Link
             href="/register"
@@ -112,7 +138,7 @@ export function Navbar() {
             onMouseEnter={(e) => (e.currentTarget.style.background = "#6d28d9")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#7c3aed")}
           >
-            Join
+            {t("nav.join")}
           </Link>
         </div>
       </nav>

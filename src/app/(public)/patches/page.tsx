@@ -1,40 +1,54 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { PatchList } from "@/components/features/patches";
 import { fetchPublishedPatches } from "@/services/patches";
 
-export const metadata: Metadata = {
-  title: "Dota 2 Patches (RU)",
-  description: "Russian-language Dota 2 patch notes and updates.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
 
-function buildPatchSummary(title: string): string {
+  return {
+    title: t("seo.patches_title"),
+    description: t("seo.patches_description"),
+  };
+}
+
+function buildPatchSummary(
+  title: string,
+  fallback: string,
+  formatSummary: (patchTitle: string) => string,
+): string {
   const normalized = title.trim();
   if (!normalized) {
-    return "Patch overview in Russian.";
+    return fallback;
   }
 
-  return `Overview: ${normalized}`;
+  return formatSummary(normalized);
 }
 
 export default async function PatchesPage() {
+  const t = await getTranslations();
   const patches = await fetchPublishedPatches();
   const patchItems = patches.map((patch) => ({
     slug: patch.slug,
     title: patch.title_ru,
-    summary: buildPatchSummary(patch.title_ru),
+    summary: buildPatchSummary(
+      patch.title_ru,
+      t("patches.overview_fallback"),
+      (patchTitle) => t("patches.overview_prefix", { title: patchTitle }),
+    ),
     publishedAt: patch.published_at,
   }));
 
   return (
     <main className="ui-page ui-patches-layout">
       <header className="ui-patches-header">
-        <h1 className="ui-heading-1">Dota 2 patches</h1>
+        <h1 className="ui-heading-1">{t("patches.title")}</h1>
+        <p className="ui-muted">{t("patches.subtitle")}</p>
         <p className="ui-muted">
-          Russian-language patch updates for InterestingDeaf users.
-        </p>
-        <p className="ui-muted">
-          <Link href="/players">Find teammates</Link> and <Link href="/register">create your profile</Link> to use the full platform.
+          <Link href="/players">{t("patches.lead_before")}</Link>.{" "}
+          <Link href="/register">{t("about.create_account")}</Link>.{" "}
+          {t("patches.lead_after")}
         </p>
       </header>
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Link } from "@/i18n/navigation";
 
 import { SiteContainer } from "./SiteContainer";
 
@@ -9,6 +10,7 @@ type PublicShellProps = {
 };
 
 export async function PublicShell({ children }: PublicShellProps) {
+  const t = await getTranslations();
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -23,16 +25,13 @@ export async function PublicShell({ children }: PublicShellProps) {
       <footer className="ui-public-footer">
         <SiteContainer>
           <div className="ui-public-footer-row">
-            <p className="ui-muted">
-              InterestingDeaf helps deaf and hard-of-hearing Dota 2 players find teammates,
-              chat, and follow patches in Russian.
-            </p>
+            <p className="ui-muted">{t("common.brand")}</p>
             <nav aria-label="Footer navigation" className="ui-public-footer-nav">
-              <Link href="/players">Players</Link>
-              <Link href="/patches">Patches</Link>
-              <Link href="/about">About</Link>
-              {user ? <Link href="/messages">Messages</Link> : null}
-              {user ? <Link href="/profile">Profile</Link> : null}
+              <Link href="/players">{t("nav.players")}</Link>
+              <Link href="/patches">{t("nav.patches")}</Link>
+              <Link href="/about">{t("nav.about")}</Link>
+              {user ? <Link href="/messages">{t("footer.messages")}</Link> : null}
+              {user ? <Link href="/profile">{t("footer.profile")}</Link> : null}
             </nav>
           </div>
         </SiteContainer>
