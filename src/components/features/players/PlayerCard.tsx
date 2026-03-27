@@ -43,8 +43,8 @@ function getRankTheme(rank: string | null): { ring: string; badge: string } {
 
   if (normalizedRank.includes("divine")) {
     return {
-      ring: "ring-violet-400/80",
-      badge: "bg-violet-500/20 text-violet-300 border-violet-400/40",
+      ring: "ring-yellow-400/80",
+      badge: "bg-yellow-500/20 text-yellow-300 border-yellow-400/40",
     };
   }
 
@@ -184,7 +184,7 @@ export function PlayerCard({ player }: PlayerCardProps) {
             >
               <Link
                 href={chatHref}
-                className="inline-flex rounded-md border border-violet-400/60 bg-violet-500/20 px-3 py-1.5 text-sm font-medium text-violet-200 transition-colors hover:bg-violet-500/30"
+                className="inline-flex rounded-md border border-yellow-400/60 bg-yellow-500/20 px-3 py-1.5 text-sm font-medium text-yellow-200 transition-colors hover:bg-yellow-500/30"
               >
                 {t("player_card.start_chat")}
               </Link>

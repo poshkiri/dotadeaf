@@ -36,7 +36,7 @@ export function Navbar() {
           background: "rgba(9,9,11,0.8)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(255,255,255,0.07)",
+          border: "1px solid rgba(245,197,24,0.12)",
           borderRadius: "9999px",
           padding: "8px 20px",
         }}
@@ -58,7 +58,7 @@ export function Navbar() {
               width: "8px",
               height: "8px",
               borderRadius: "50%",
-              background: "linear-gradient(135deg, #c0392b, #e74c3c)",
+              background: "#F5C518",
               display: "inline-block",
               flexShrink: 0,
             }}
@@ -94,7 +94,7 @@ export function Navbar() {
             type="button"
             onClick={() => router.replace(pathname, { locale: nextLocale })}
             style={{
-              border: "1px solid rgba(255,255,255,0.15)",
+              border: "1px solid rgba(245,197,24,0.25)",
               borderRadius: "9999px",
               background: "transparent",
               color: "#a1a1aa",
@@ -103,7 +103,7 @@ export function Navbar() {
               transition: "color 0.15s",
               cursor: "pointer",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#F5C518")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
             aria-label={`Switch language to ${nextLocale.toUpperCase()}`}
           >
@@ -126,17 +126,17 @@ export function Navbar() {
           <Link
             href="/register"
             style={{
-              background: "#7c3aed",
-              color: "white",
+              background: "#F5C518",
+              color: "#0a0a0a",
               fontSize: "14px",
-              fontWeight: 500,
+              fontWeight: 700,
               padding: "6px 16px",
               borderRadius: "9999px",
               textDecoration: "none",
               transition: "background 0.15s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#6d28d9")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#7c3aed")}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#d4a017")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#F5C518")}
           >
             {t("nav.join")}
           </Link>

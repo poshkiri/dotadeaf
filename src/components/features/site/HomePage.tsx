@@ -37,7 +37,7 @@ export function HomePage() {
             height: "600px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(245,197,24,0.18) 0%, transparent 70%)",
             filter: "blur(60px)",
             zIndex: 0,
             pointerEvents: "none",
@@ -53,7 +53,7 @@ export function HomePage() {
             height: "500px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(192,57,43,0.2) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(220,160,0,0.12) 0%, transparent 70%)",
             filter: "blur(60px)",
             zIndex: 0,
             pointerEvents: "none",
@@ -70,7 +70,7 @@ export function HomePage() {
             height: "400px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)",
             filter: "blur(80px)",
             zIndex: 0,
             pointerEvents: "none",

@@ -26,7 +26,7 @@ export function PatchLayout({ children, tocItems }: PatchLayoutProps) {
   return (
     <div className="relative mx-auto w-full max-w-6xl">
       <motion.div
-        className="fixed left-0 right-0 top-0 z-[55] h-0.5 origin-left bg-violet-500"
+        className="fixed left-0 right-0 top-0 z-[55] h-0.5 origin-left bg-[#F5C518]"
         style={{ scaleX: progress }}
       />
 

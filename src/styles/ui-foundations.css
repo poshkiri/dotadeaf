@@ -1,5 +1,5 @@
 :root {
-  --ui-bg: #09090b;
+  --ui-bg: #0a0a0a;
   --ui-surface: #18181b;
   --ui-surface-muted: #18181b;
   --ui-border: #27272a;
@@ -725,9 +725,9 @@ select:focus-visible {
   border-left: 0;
   border-right: 0;
   background:
-    radial-gradient(130% 100% at 0% 0%, rgba(124, 58, 237, 0.18), transparent 52%),
-    radial-gradient(100% 90% at 100% 0%, rgba(99, 102, 241, 0.16), transparent 56%),
-    #09090b;
+    radial-gradient(130% 100% at 0% 0%, rgba(245, 197, 24, 0.18), transparent 52%),
+    radial-gradient(100% 90% at 100% 0%, rgba(220, 160, 0, 0.12), transparent 56%),
+    #0a0a0a;
   box-shadow: 0 24px 54px rgba(3, 4, 8, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   padding: 80px clamp(1.2rem, 1.9vw, 1.8rem) 80px;
   justify-items: center;
@@ -742,9 +742,9 @@ select:focus-visible {
   pointer-events: none;
   background: radial-gradient(
     circle,
-    rgba(124, 58, 237, 0.26) 0%,
-    rgba(99, 102, 241, 0.2) 36%,
-    rgba(79, 70, 229, 0.11) 54%,
+    rgba(245, 197, 24, 0.2) 0%,
+    rgba(220, 160, 0, 0.14) 36%,
+    rgba(255, 255, 255, 0.05) 54%,
     rgba(9, 9, 11, 0) 72%
   );
   filter: blur(12px);
@@ -796,7 +796,7 @@ select:focus-visible {
 }
 
 .ui-home-hero-title-accent {
-  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  background: linear-gradient(135deg, #f5c518, #ff9f00);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -834,16 +834,16 @@ select:focus-visible {
 }
 
 .ui-home-hero-cta-primary {
-  background: #7c3aed;
-  border: 1px solid rgba(139, 92, 246, 0.95);
-  color: #fafafa;
-  box-shadow: 0 10px 24px rgba(76, 29, 149, 0.36);
+  background: #f5c518;
+  border: 1px solid rgba(245, 197, 24, 0.95);
+  color: #0a0a0a;
+  box-shadow: 0 10px 24px rgba(212, 160, 23, 0.36);
 }
 
 .ui-home-hero-cta-primary:hover {
-  color: #fafafa;
+  color: #0a0a0a;
   text-decoration: none;
-  background: #6d28d9;
+  background: #d4a017;
 }
 
 .ui-home-hero-cta-secondary {
@@ -855,7 +855,7 @@ select:focus-visible {
 .ui-home-hero-cta-secondary:hover {
   color: rgba(245, 245, 250, 0.98);
   text-decoration: none;
-  border-color: rgba(167, 139, 250, 0.5);
+  border-color: rgba(245, 197, 24, 0.5);
 }
 
 .ui-home-hero-info-row {

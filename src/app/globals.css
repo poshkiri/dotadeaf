@@ -1,22 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --ui-bg: #09090b;
-  --ui-surface: #18181b;
+  --ui-bg: #0a0a0a;
+  --ui-surface: #1a1a1a;
   --ui-surface-muted: #18181b;
   --ui-border: #27272a;
   --ui-border-strong: #27272a;
-  --ui-text: #fafafa;
+  --ui-text: #f0f0f0;
   --ui-text-muted: #a1a1aa;
 }
 
 html,
 body {
-  background-color: #09090b;
+  background-color: #0a0a0a;
 }
 
 body {
-  color: #fafafa;
+  color: #f0f0f0;
   font-family: "Inter", sans-serif;
   font-weight: 400;
   line-height: 1.7;
@@ -80,7 +80,7 @@ h6 {
   left: -140px;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.18) 0%, transparent 70%);
 }
 
 .home-orb-red {
@@ -116,11 +116,11 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(245, 197, 24, 0.3);
   border-radius: 9999px;
   padding: 0.45rem 0.9rem;
   font-size: 0.85rem;
-  color: #a1a1aa;
+  color: #f5c518;
   background: rgba(255, 255, 255, 0.03);
   margin-bottom: 1.25rem;
 }
@@ -134,7 +134,10 @@ h6 {
 }
 
 .home-hero-title-accent {
-  color: #a78bfa;
+  background: linear-gradient(135deg, #f5c518, #ff9f00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .home-hero-subtitle {
@@ -161,29 +164,30 @@ h6 {
 }
 
 .home-btn-primary {
-  background: #7c3aed;
-  color: #fff;
+  background: #f5c518;
+  color: #0a0a0a;
+  font-weight: 700;
 }
 
 .home-btn-primary:hover {
-  background: #6d28d9;
+  background: #d4a017;
 }
 
 .home-btn-secondary {
-  color: #e4e4e7;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.02);
+  color: #f0f0f0;
+  border: 1px solid rgba(245, 197, 24, 0.3);
+  background: transparent;
 }
 
 .home-btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.24);
+  border-color: rgba(245, 197, 24, 0.7);
   color: #fff;
 }
 
 .home-btn-large {
   margin-top: 1.25rem;
   padding: 0.8rem 1.6rem;
-  box-shadow: 0 0 60px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 0 60px rgba(245, 197, 24, 0.3);
 }
 
 .home-hero-tags {
@@ -267,13 +271,13 @@ h6 {
 }
 
 .home-feature-card:hover {
-  border-color: rgba(124, 58, 237, 0.4);
-  box-shadow: 0 0 24px rgba(124, 58, 237, 0.08);
+  border-color: rgba(245, 197, 24, 0.35);
+  box-shadow: 0 0 24px rgba(245, 197, 24, 0.08);
 }
 
 .home-feature-icon {
   font-size: 32px;
-  color: #7c3aed;
+  color: #f5c518;
   line-height: 1;
 }
 
