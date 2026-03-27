@@ -24,15 +24,22 @@ export async function PublicShell({ children }: PublicShellProps) {
 
       <footer className="ui-public-footer">
         <SiteContainer>
-          <div className="ui-public-footer-row">
+          <div className="ui-public-footer-row" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <p className="ui-muted">{t("common.brand")}</p>
-            <nav aria-label="Footer navigation" className="ui-public-footer-nav">
+            <nav
+              aria-label="Footer navigation"
+              className="ui-public-footer-nav"
+              style={{ display: "flex", alignItems: "center", gap: "24px" }}
+            >
               <Link href="/players">{t("nav.players")}</Link>
               <Link href="/patches">{t("nav.patches")}</Link>
               <Link href="/about">{t("nav.about")}</Link>
               {user ? <Link href="/messages">{t("footer.messages")}</Link> : null}
               {user ? <Link href="/profile">{t("footer.profile")}</Link> : null}
             </nav>
+            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "13px", margin: 0 }}>
+              © 2025 dotadeaf. Все права защищены.
+            </p>
           </div>
         </SiteContainer>
       </footer>

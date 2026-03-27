@@ -3,7 +3,66 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
-const featureIcons = ["🎯", "🔎", "💬", "🧩"];
+const featureIcons = [
+  <svg
+    key="profile"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#F5C518"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+  </svg>,
+  <svg
+    key="search"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#F5C518"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="7" />
+    <path d="m21 21-4.35-4.35" />
+  </svg>,
+  <svg
+    key="chat"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#F5C518"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </svg>,
+  <svg
+    key="patch"
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#F5C518"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <polyline points="10 9 9 9 8 9" />
+  </svg>,
+];
 
 export function HomePage() {
   const t = useTranslations();
@@ -139,7 +198,13 @@ export function HomePage() {
       <section className="home-cta" aria-label="Call to action">
         <h2>{t("cta_section.title")}</h2>
         <p>{t("cta_section.subtitle")}</p>
-        <Link href="/register" className="home-btn home-btn-primary home-btn-large">
+        <Link
+          href="/register"
+          className="home-btn home-btn-primary home-btn-large"
+          style={{
+            boxShadow: "0 0 40px rgba(245,197,24,0.35), 0 4px 16px rgba(245,197,24,0.2)",
+          }}
+        >
           {t("cta_section.button")}
         </Link>
       </section>

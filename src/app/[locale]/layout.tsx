@@ -43,7 +43,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <Navbar />
-      <main className="pt-16" style={{ backgroundColor: "#0a0a0a" }}>
+      <main style={{ backgroundColor: "#0a0a0a", paddingTop: "80px" }}>
         {children}
       </main>
     </NextIntlClientProvider>
