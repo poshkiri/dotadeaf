@@ -38,7 +38,7 @@ export async function PublicShell({ children }: PublicShellProps) {
               {user ? <Link href="/profile">{t("footer.profile")}</Link> : null}
             </nav>
             <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "13px", margin: 0 }}>
-              © 2025 dotadeaf. Все права защищены.
+              © 2026 dotadeaf. Все права защищены.
             </p>
           </div>
         </SiteContainer>
