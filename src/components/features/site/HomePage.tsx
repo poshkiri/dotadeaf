@@ -73,14 +73,16 @@ export function HomePage() {
         className="home-hero"
         aria-label="Hero section"
         style={{
+          width: "100vw",
+          marginLeft: "calc(50% - 50vw)",
+          marginRight: "calc(50% - 50vw)",
           position: "relative",
           overflow: "hidden",
           minHeight: "100vh",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: "100px",
+          paddingTop: "80px",
           paddingBottom: "64px",
           paddingLeft: "20px",
           paddingRight: "20px",
@@ -90,30 +92,15 @@ export function HomePage() {
           aria-hidden="true"
           style={{
             position: "absolute",
-            top: "-200px",
-            left: "-100px",
-            width: "600px",
+            top: "-300px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "900px",
             height: "600px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(245,197,24,0.18) 0%, transparent 70%)",
-            filter: "blur(60px)",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: "-150px",
-            right: "-150px",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(220,160,0,0.12) 0%, transparent 70%)",
-            filter: "blur(60px)",
+              "radial-gradient(ellipse, rgba(245,197,24,0.12) 0%, transparent 65%)",
+            filter: "blur(40px)",
             zIndex: 0,
             pointerEvents: "none",
           }}
@@ -123,20 +110,41 @@ export function HomePage() {
           style={{
             position: "absolute",
             bottom: "-100px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "400px",
-            height: "400px",
+            left: "-200px",
+            width: "500px",
+            height: "500px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(180,30,30,0.1) 0%, transparent 70%)",
             filter: "blur(80px)",
             zIndex: 0,
             pointerEvents: "none",
           }}
         />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "linear-gradient(rgba(245,197,24,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,197,24,0.03) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
 
-        <div className="home-hero-content" style={{ position: "relative", zIndex: 1 }}>
+        <div
+          className="home-hero-content"
+          style={{
+            position: "relative",
+            zIndex: 1,
+            maxWidth: "760px",
+            width: "100%",
+            margin: "0 auto",
+            background: "transparent",
+          }}
+        >
           <p className="home-hero-badge">{t("hero.badge")}</p>
           <h1 className="home-hero-title">
             <span>{t("hero.title1")}</span>
