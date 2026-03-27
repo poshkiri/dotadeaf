@@ -1,11 +1,11 @@
 :root {
-  --ui-bg: #f5f7fa;
-  --ui-surface: #ffffff;
-  --ui-surface-muted: #f8fafc;
-  --ui-border: #d9e1ea;
-  --ui-border-strong: #c6d0dd;
-  --ui-text: #1c2733;
-  --ui-text-muted: #5b6b7c;
+  --ui-bg: #09090b;
+  --ui-surface: #18181b;
+  --ui-surface-muted: #18181b;
+  --ui-border: #27272a;
+  --ui-border-strong: #27272a;
+  --ui-text: #fafafa;
+  --ui-text-muted: #a1a1aa;
   --ui-accent: #1f5f8f;
   --ui-accent-hover: #184d74;
   --ui-danger: #b42318;

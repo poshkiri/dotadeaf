@@ -10,12 +10,74 @@ export function HomePage() {
 
   return (
     <div className="home-page">
-      <section className="home-hero" aria-label="Hero section">
-        <div className="home-orb home-orb-violet" aria-hidden="true" />
-        <div className="home-orb home-orb-red" aria-hidden="true" />
-        <div className="home-orb home-orb-indigo" aria-hidden="true" />
+      <section
+        className="home-hero"
+        aria-label="Hero section"
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: "100px",
+          paddingBottom: "64px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "-200px",
+            left: "-100px",
+            width: "600px",
+            height: "600px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "-150px",
+            right: "-150px",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(192,57,43,0.2) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: "-100px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "400px",
+            height: "400px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)",
+            filter: "blur(80px)",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
 
-        <div className="home-hero-content">
+        <div className="home-hero-content" style={{ position: "relative", zIndex: 1 }}>
           <p className="home-hero-badge">{t("hero.badge")}</p>
           <h1 className="home-hero-title">
             <span>{t("hero.title1")}</span>
