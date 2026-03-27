@@ -132,7 +132,10 @@ export function HomePage() {
           aria-hidden="true"
           style={{
             position: "absolute",
-            inset: 0,
+            top: "-80px",
+            left: 0,
+            right: 0,
+            bottom: 0,
             backgroundImage:
               "linear-gradient(rgba(245,197,24,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,197,24,0.03) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
