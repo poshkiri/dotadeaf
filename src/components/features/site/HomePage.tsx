@@ -2,6 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { ParticleField } from "@/components/ui/ParticleField";
+import { useTypewriter } from "@/hooks/useTypewriter";
+import { useCountUp } from "@/hooks/useCountUp";
 
 const featureIcons = [
   <svg
@@ -66,6 +69,9 @@ const featureIcons = [
 
 export function HomePage() {
   const t = useTranslations();
+  const typedText = useTypewriter(t("hero.title2"), 70, 800);
+  const { ref: ref1, count: count1 } = useCountUp(500);
+  const statsPlayersLabel = t("stats.players").replace(/^500\+\s*/, "");
 
   return (
     <div className="home-page">
@@ -88,6 +94,7 @@ export function HomePage() {
           paddingRight: "20px",
         }}
       >
+        <ParticleField />
         <div
           aria-hidden="true"
           style={{
@@ -133,6 +140,20 @@ export function HomePage() {
             pointerEvents: "none",
           }}
         />
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            height: "1px",
+            background:
+              "linear-gradient(90deg, transparent, rgba(245,197,24,0.3), transparent)",
+            animation: "scan 6s ease-in-out infinite",
+            animationDelay: "2s",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
 
         <div
           className="home-hero-content"
@@ -148,7 +169,26 @@ export function HomePage() {
           <p className="home-hero-badge">{t("hero.badge")}</p>
           <h1 className="home-hero-title">
             <span>{t("hero.title1")}</span>
-            <span className="home-hero-title-accent">{t("hero.title2")}</span>
+            <span
+              style={{
+                background: "linear-gradient(135deg, #F5C518, #ff9f00)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              {typedText}
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "3px",
+                  height: "0.85em",
+                  background: "#F5C518",
+                  marginLeft: "4px",
+                  verticalAlign: "middle",
+                  animation: "blink 1s step-end infinite",
+                }}
+              />
+            </span>
           </h1>
           <p className="home-hero-subtitle">{t("hero.subtitle")}</p>
 
@@ -172,8 +212,10 @@ export function HomePage() {
       <section className="home-stats" aria-label="Platform stats">
         <div className="home-stats-inner">
           <div className="home-stat-item">
-            <strong>500+</strong>
-            <span>{t("stats.players").replace("500+ ", "")}</span>
+            <strong>
+              <span ref={ref1}>{count1}+</span>
+            </strong>
+            <span>{statsPlayersLabel}</span>
           </div>
           <div className="home-stat-divider" />
           <div className="home-stat-item">
