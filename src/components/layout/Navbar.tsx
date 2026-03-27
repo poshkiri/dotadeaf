@@ -17,7 +17,7 @@ export function Navbar() {
       transition={{ duration: 0.35, ease: "easeOut" }}
       style={{
         position: "fixed",
-        top: "16px",
+        top: "0",
         left: 0,
         right: 0,
         zIndex: 50,
