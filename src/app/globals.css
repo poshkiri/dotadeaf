@@ -72,7 +72,6 @@ h6 {
 }
 
 .home-hero-inner {
-  width: 100%;
   position: relative;
   z-index: 2;
 }
@@ -137,7 +136,7 @@ h6 {
 
 @media (min-width: 769px) {
   .home-hero-text-col {
-    max-width: min(520px, calc(100% - 560px));
+    max-width: min(520px, calc(100% - 620px));
   }
 }
 
@@ -147,6 +146,7 @@ h6 {
   }
 
   .home-hero-inner {
+    width: 100% !important;
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
   }

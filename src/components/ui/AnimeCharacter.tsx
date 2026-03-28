@@ -62,16 +62,16 @@ export function AnimeCharacter() {
         width: "100%",
         height: "100%",
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-end",
         justifyContent: "center",
         cursor: "none",
       }}
     >
       <svg
-        viewBox="0 0 320 560"
+        viewBox="0 0 320 580"
         width="100%"
         height="100%"
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="xMidYMax meet"
         style={{
           transform: `translateY(${breathe}px) ${hovering ? "scale(1.03)" : "scale(1)"}`,
           transition: "filter 0.3s ease",
@@ -115,6 +115,15 @@ export function AnimeCharacter() {
             <ellipse cx="202" cy="185" rx="22" ry="16" />
           </clipPath>
         </defs>
+
+        <ellipse
+          cx="160"
+          cy="555"
+          rx="90"
+          ry="12"
+          fill="rgba(0,0,0,0.5)"
+          style={{ filter: "blur(8px)" }}
+        />
 
         <ellipse
           cx="160"

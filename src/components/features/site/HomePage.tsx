@@ -149,12 +149,12 @@ export function HomePage() {
           className="home-hero-inner"
           style={{
             flex: 1,
-            width: "100%",
-            maxWidth: "1100px",
+            width: "fit-content",
+            maxWidth: "min(100%, 1100px)",
             margin: "0 auto",
             padding: "0 40px",
             position: "relative",
-            zIndex: 1,
+            zIndex: 2,
             minHeight: 0,
           }}
         >
@@ -203,22 +203,41 @@ export function HomePage() {
               <span>{t("hero.tag_region")}</span>
             </div>
           </div>
+        </div>
 
-          <div
-            className="hero-3d-col"
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: "520px",
-              maxHeight: "700px",
-              height: "100%",
-              zIndex: 1,
-            }}
-          >
-            <AnimeCharacter />
-          </div>
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            right: "-100px",
+            top: "10%",
+            width: "600px",
+            height: "80%",
+            background:
+              "radial-gradient(ellipse at center, rgba(180,0,0,0.12) 0%, transparent 65%)",
+            filter: "blur(40px)",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          className="hero-3d-col"
+          style={{
+            position: "absolute",
+            right: "-40px",
+            top: 0,
+            bottom: 0,
+            width: "560px",
+            height: "100vh",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            zIndex: 1,
+            pointerEvents: "auto",
+          }}
+        >
+          <AnimeCharacter />
         </div>
       </section>
 

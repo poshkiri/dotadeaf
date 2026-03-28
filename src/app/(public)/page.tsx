@@ -1,5 +1,6 @@
-import { HomePage } from "@/components/features/site/HomePage";
+import { redirect } from "next/navigation";
+import { routing } from "@/i18n/routing";
 
-export default function PublicHomePage() {
-  return <HomePage />;
+export default function PublicRootRedirect() {
+  redirect(`/${routing.defaultLocale}`);
 }
