@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ParticleField } from "@/components/ui/ParticleField";
-import { DDLogo3D } from "@/components/ui/DDLogo3D";
+import { AnimeCharacter } from "@/components/ui/AnimeCharacter";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useCountUp } from "@/hooks/useCountUp";
 
@@ -221,12 +221,12 @@ export function HomePage() {
             className="hero-3d-col"
             style={{
               width: "480px",
-              height: "480px",
+              height: "520px",
               flexShrink: 0,
               position: "relative",
             }}
           >
-            <DDLogo3D />
+            <AnimeCharacter />
           </div>
         </div>
       </section>
