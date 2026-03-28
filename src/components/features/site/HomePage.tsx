@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ParticleField } from "@/components/ui/ParticleField";
-import { AnimeCharacter } from "@/components/ui/AnimeCharacter";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useCountUp } from "@/hooks/useCountUp";
 
@@ -87,9 +86,8 @@ export function HomePage() {
           overflow: "hidden",
           minHeight: "100vh",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "stretch",
-          justifyContent: "flex-start",
+          alignItems: "center",
+          justifyContent: "center",
           paddingTop: "80px",
           paddingBottom: "64px",
           paddingLeft: "20px",
@@ -146,98 +144,57 @@ export function HomePage() {
           }}
         />
         <div
-          className="home-hero-inner"
+          className="home-hero-content"
           style={{
-            flex: 1,
-            width: "fit-content",
-            maxWidth: "min(100%, 1100px)",
-            margin: "0 auto",
-            padding: "0 40px",
             position: "relative",
-            zIndex: 2,
-            minHeight: 0,
+            zIndex: 1,
+            maxWidth: "760px",
+            width: "100%",
+            margin: "0 auto",
+            textAlign: "center",
+            background: "transparent",
           }}
         >
-          <div
-            className="home-hero-text-col"
-            style={{ position: "relative", zIndex: 2, maxWidth: "520px" }}
-          >
-            <p className="home-hero-badge">{t("hero.badge")}</p>
-            <h1 className="home-hero-title">
-              <span>{t("hero.title1")}</span>
+          <p className="home-hero-badge">{t("hero.badge")}</p>
+          <h1 className="home-hero-title">
+            <span>{t("hero.title1")}</span>
+            <span
+              style={{
+                background: "linear-gradient(135deg, #F5C518, #ff9f00)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              {typedText}
               <span
                 style={{
-                  background: "linear-gradient(135deg, #F5C518, #ff9f00)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  display: "inline-block",
+                  width: "3px",
+                  height: "0.85em",
+                  background: "#F5C518",
+                  marginLeft: "4px",
+                  verticalAlign: "middle",
+                  animation: "blink 1s step-end infinite",
                 }}
-              >
-                {typedText}
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "3px",
-                    height: "0.85em",
-                    background: "#F5C518",
-                    marginLeft: "4px",
-                    verticalAlign: "middle",
-                    animation: "blink 1s step-end infinite",
-                  }}
-                />
-              </span>
-            </h1>
-            <p className="home-hero-subtitle">{t("hero.subtitle")}</p>
+              />
+            </span>
+          </h1>
+          <p className="home-hero-subtitle">{t("hero.subtitle")}</p>
 
-            <div className="home-hero-actions">
-              <Link href="/register" className="home-btn home-btn-primary">
-                {t("hero.cta_primary")}
-              </Link>
-              <Link href="/players" className="home-btn home-btn-secondary">
-                {t("hero.cta_secondary")}
-              </Link>
-            </div>
-
-            <div className="home-hero-tags" aria-label="Highlights">
-              <span>{t("hero.tag_role")}</span>
-              <span>{t("hero.tag_rank")}</span>
-              <span>{t("hero.tag_region")}</span>
-            </div>
+          <div className="home-hero-actions">
+            <Link href="/register" className="home-btn home-btn-primary">
+              {t("hero.cta_primary")}
+            </Link>
+            <Link href="/players" className="home-btn home-btn-secondary">
+              {t("hero.cta_secondary")}
+            </Link>
           </div>
-        </div>
 
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            right: "-100px",
-            top: "10%",
-            width: "600px",
-            height: "80%",
-            background:
-              "radial-gradient(ellipse at center, rgba(180,0,0,0.12) 0%, transparent 65%)",
-            filter: "blur(40px)",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-
-        <div
-          className="hero-3d-col"
-          style={{
-            position: "absolute",
-            right: "-40px",
-            top: 0,
-            bottom: 0,
-            width: "560px",
-            height: "100vh",
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            zIndex: 1,
-            pointerEvents: "auto",
-          }}
-        >
-          <AnimeCharacter />
+          <div className="home-hero-tags" aria-label="Highlights">
+            <span>{t("hero.tag_role")}</span>
+            <span>{t("hero.tag_rank")}</span>
+            <span>{t("hero.tag_region")}</span>
+          </div>
         </div>
       </section>
 
