@@ -88,7 +88,7 @@ export function HomePage() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           paddingTop: "80px",
           paddingBottom: "60px",
           paddingLeft: "20px",
