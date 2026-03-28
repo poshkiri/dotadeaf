@@ -3,33 +3,65 @@
 import { useEffect, useRef } from "react";
 
 export function ParticleField() {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const wrap = wrapRef.current;
+    if (!canvas || !wrap) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animId: number;
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    const particles: Array<{
+      x: number;
+      y: number;
+      r: number;
+      dx: number;
+      dy: number;
+      opacity: number;
+    }> = [];
+
+    const initParticles = (w: number, h: number) => {
+      particles.length = 0;
+      for (let i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.5 + 0.5,
+          dx: (Math.random() - 0.5) * 0.4,
+          dy: (Math.random() - 0.5) * 0.4,
+          opacity: Math.random() * 0.4 + 0.1,
+        });
+      }
     };
+
+    const resize = () => {
+      const w = wrap.clientWidth;
+      const h = wrap.clientHeight;
+      if (w < 1 || h < 1) return;
+      canvas.width = w;
+      canvas.height = h;
+      if (particles.length === 0) {
+        initParticles(w, h);
+      } else {
+        particles.forEach((p) => {
+          p.x = Math.min(p.x, w);
+          p.y = Math.min(p.y, h);
+        });
+      }
+    };
+
     resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(wrap);
     window.addEventListener("resize", resize);
 
-    const particles = Array.from({ length: 60 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.5 + 0.5,
-      dx: (Math.random() - 0.5) * 0.4,
-      dy: (Math.random() - 0.5) * 0.4,
-      opacity: Math.random() * 0.4 + 0.1,
-    }));
-
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -37,8 +69,8 @@ export function ParticleField() {
         ctx.fill();
         p.x += p.dx;
         p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        if (p.x < 0 || p.x > w) p.dx *= -1;
+        if (p.y < 0 || p.y > h) p.dy *= -1;
       });
 
       for (let i = 0; i < particles.length; i++) {
@@ -62,20 +94,30 @@ export function ParticleField() {
 
     return () => {
       cancelAnimationFrame(animId);
+      ro.disconnect();
       window.removeEventListener("resize", resize);
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      ref={wrapRef}
       style={{
         position: "absolute",
         inset: 0,
         zIndex: 0,
         pointerEvents: "none",
-        opacity: 0.6,
       }}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+          opacity: 0.6,
+        }}
+      />
+    </div>
   );
 }

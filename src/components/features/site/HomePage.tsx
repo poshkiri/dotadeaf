@@ -86,10 +86,11 @@ export function HomePage() {
           overflow: "hidden",
           minHeight: "100vh",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           paddingTop: "80px",
-          paddingBottom: "64px",
+          paddingBottom: "60px",
           paddingLeft: "20px",
           paddingRight: "20px",
         }}
@@ -99,7 +100,7 @@ export function HomePage() {
           aria-hidden="true"
           style={{
             position: "absolute",
-            top: "-300px",
+            top: "-150px",
             left: "50%",
             transform: "translateX(-50%)",
             width: "900px",
@@ -132,7 +133,7 @@ export function HomePage() {
           aria-hidden="true"
           style={{
             position: "absolute",
-            top: "-80px",
+            top: 0,
             left: 0,
             right: 0,
             bottom: 0,
@@ -151,6 +152,8 @@ export function HomePage() {
             maxWidth: "760px",
             width: "100%",
             margin: "0 auto",
+            marginTop: 0,
+            paddingTop: 0,
             textAlign: "center",
             background: "transparent",
           }}
