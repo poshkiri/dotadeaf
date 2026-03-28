@@ -732,7 +732,7 @@ select:focus-visible {
     radial-gradient(100% 90% at 100% 0%, rgba(220, 160, 0, 0.12), transparent 56%),
     #0a0a0a;
   box-shadow: 0 24px 54px rgba(3, 4, 8, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  padding: 80px clamp(1.2rem, 1.9vw, 1.8rem);
+  padding: 60px clamp(1.2rem, 1.9vw, 1.8rem) 60px;
 }
 
 .ui-home-hero-ambient {
