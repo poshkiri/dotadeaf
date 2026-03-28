@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ParticleField } from "@/components/ui/ParticleField";
-import { SplineScene } from "@/components/ui/SplineScene";
+import { DDLogo3D } from "@/components/ui/DDLogo3D";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useCountUp } from "@/hooks/useCountUp";
 
@@ -226,7 +226,7 @@ export function HomePage() {
               position: "relative",
             }}
           >
-            <SplineScene />
+            <DDLogo3D />
           </div>
         </div>
       </section>
