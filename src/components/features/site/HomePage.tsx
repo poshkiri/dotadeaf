@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ParticleField } from "@/components/ui/ParticleField";
+import { SplineScene } from "@/components/ui/SplineScene";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useCountUp } from "@/hooks/useCountUp";
 
@@ -159,55 +160,73 @@ export function HomePage() {
         />
 
         <div
-          className="home-hero-content"
+          className="home-hero-inner"
           style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "24px",
+            width: "100%",
+            maxWidth: "1100px",
+            margin: "0 auto",
+            padding: "0 40px",
             position: "relative",
             zIndex: 1,
-            maxWidth: "760px",
-            width: "100%",
-            margin: "0 auto",
-            background: "transparent",
           }}
         >
-          <p className="home-hero-badge">{t("hero.badge")}</p>
-          <h1 className="home-hero-title">
-            <span>{t("hero.title1")}</span>
-            <span
-              style={{
-                background: "linear-gradient(135deg, #F5C518, #ff9f00)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              {typedText}
+          <div className="home-hero-text-col" style={{ flex: 1, maxWidth: "520px" }}>
+            <p className="home-hero-badge">{t("hero.badge")}</p>
+            <h1 className="home-hero-title">
+              <span>{t("hero.title1")}</span>
               <span
                 style={{
-                  display: "inline-block",
-                  width: "3px",
-                  height: "0.85em",
-                  background: "#F5C518",
-                  marginLeft: "4px",
-                  verticalAlign: "middle",
-                  animation: "blink 1s step-end infinite",
+                  background: "linear-gradient(135deg, #F5C518, #ff9f00)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 }}
-              />
-            </span>
-          </h1>
-          <p className="home-hero-subtitle">{t("hero.subtitle")}</p>
+              >
+                {typedText}
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "3px",
+                    height: "0.85em",
+                    background: "#F5C518",
+                    marginLeft: "4px",
+                    verticalAlign: "middle",
+                    animation: "blink 1s step-end infinite",
+                  }}
+                />
+              </span>
+            </h1>
+            <p className="home-hero-subtitle">{t("hero.subtitle")}</p>
 
-          <div className="home-hero-actions">
-            <Link href="/register" className="home-btn home-btn-primary">
-              {t("hero.cta_primary")}
-            </Link>
-            <Link href="/players" className="home-btn home-btn-secondary">
-              {t("hero.cta_secondary")}
-            </Link>
+            <div className="home-hero-actions">
+              <Link href="/register" className="home-btn home-btn-primary">
+                {t("hero.cta_primary")}
+              </Link>
+              <Link href="/players" className="home-btn home-btn-secondary">
+                {t("hero.cta_secondary")}
+              </Link>
+            </div>
+
+            <div className="home-hero-tags" aria-label="Highlights">
+              <span>{t("hero.tag_role")}</span>
+              <span>{t("hero.tag_rank")}</span>
+              <span>{t("hero.tag_region")}</span>
+            </div>
           </div>
 
-          <div className="home-hero-tags" aria-label="Highlights">
-            <span>{t("hero.tag_role")}</span>
-            <span>{t("hero.tag_rank")}</span>
-            <span>{t("hero.tag_region")}</span>
+          <div
+            className="hero-3d-col"
+            style={{
+              width: "480px",
+              height: "480px",
+              flexShrink: 0,
+              position: "relative",
+            }}
+          >
+            <SplineScene />
           </div>
         </div>
       </section>
