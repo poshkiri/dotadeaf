@@ -121,7 +121,9 @@
     "date_missing": "Дата не указана",
     "toc_title": "Герои",
     "toc_empty": "Нет якорей разделов",
-    "toc_aria": "Оглавление патча"
+    "toc_aria": "Оглавление патча",
+    "contents_sidebar": "Содержание",
+    "card_game_label": "Dota 2"
   },
   "auth_page": {
     "login_panel": "Панель входа",

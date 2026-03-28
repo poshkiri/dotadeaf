@@ -1,3 +1,5 @@
+"use client";
+
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
@@ -26,7 +28,7 @@ function formatPatchDate(value: string | null, locale: string, fallback: string)
 
   return new Intl.DateTimeFormat(locale, {
     year: "numeric",
-    month: "short",
+    month: "long",
     day: "numeric",
   }).format(parsedDate);
 }
@@ -52,22 +54,33 @@ export function PatchList({
   return (
     <section aria-label="Patches list" className="ui-section">
       <h2 className="ui-heading-2">{t("patches.published_title")}</h2>
-      <ul className="ui-list">
+      <ul className="patch-list">
         {patches.map((patch) => (
           <li key={patch.slug}>
-            <article className="ui-card ui-patches-list-item">
-              <header className="ui-patches-list-head">
-                <h3 className="ui-patches-list-title">
-                  <Link href={`${detailBasePath}/${patch.slug}`}>{patch.title}</Link>
-                </h3>
-              </header>
-              <p className="ui-patches-list-summary">{patch.summary}</p>
-              <p className="ui-patches-list-meta">
-                <time dateTime={patch.publishedAt ?? undefined}>
-                  {formatPatchDate(patch.publishedAt, locale, t("patches.date_missing"))}
-                </time>
-              </p>
-            </article>
+            <Link href={`${detailBasePath}/${patch.slug}`} className="patch-card">
+              <div className="patch-card-inner">
+                <div>
+                  <span className="patch-card-label">{t("patches.card_game_label")}</span>
+                  <h3 className="patch-card-title">{patch.title}</h3>
+                  <p className="patch-card-date">
+                    <time dateTime={patch.publishedAt ?? undefined}>
+                      {formatPatchDate(patch.publishedAt, locale, t("patches.date_missing"))}
+                    </time>
+                  </p>
+                </div>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#F5C518"
+                  strokeWidth="2"
+                  aria-hidden
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

@@ -385,3 +385,129 @@ h6 {
     display: none;
   }
 }
+
+.patch-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.patch-card {
+  display: block;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.patch-card:hover {
+  border-color: rgba(245, 197, 24, 0.3);
+  background: rgba(245, 197, 24, 0.04);
+  transform: translateX(4px);
+}
+
+.patch-card-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.patch-card-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f5c518;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.patch-card-title {
+  color: #fafafa;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+}
+
+.patch-card-date {
+  color: #71717a;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.patch-layout-root {
+  position: relative;
+  width: 100%;
+}
+
+.patch-layout-main {
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .patch-layout-main {
+    padding-right: 220px;
+  }
+}
+
+.patch-toc-sidebar {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .patch-toc-sidebar {
+    display: block;
+    position: fixed;
+    right: 24px;
+    top: 100px;
+    width: 180px;
+    z-index: 40;
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 16px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+}
+
+.patch-toc-sidebar-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin: 0 0 12px;
+}
+
+.patch-toc-sidebar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.patch-toc-link {
+  font-size: 13px;
+  color: #a1a1aa;
+  text-decoration: none;
+  display: block;
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.patch-toc-link:hover {
+  color: #f5c518;
+}
+
+.patch-toc-link--active {
+  color: #f5c518;
+  font-weight: 600;
+}

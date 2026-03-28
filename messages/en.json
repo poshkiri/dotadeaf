@@ -121,7 +121,9 @@
     "date_missing": "Date not specified",
     "toc_title": "Heroes",
     "toc_empty": "No section anchors",
-    "toc_aria": "Patch table of contents"
+    "toc_aria": "Patch table of contents",
+    "contents_sidebar": "Contents",
+    "card_game_label": "Dota 2"
   },
   "auth_page": {
     "login_panel": "Login panel",
