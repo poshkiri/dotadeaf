@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from "react";
 
 export function AnimeCharacter() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const breatheRaf = useRef(0);
   const [pupilPos, setPupilPos] = useState({ x: 0, y: 0 });
   const [blinking, setBlinking] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const [breathe, setBreathe] = useState(0);
 
   useEffect(() => {
     const blinkInterval = setInterval(() => {
@@ -14,6 +16,18 @@ export function AnimeCharacter() {
       setTimeout(() => setBlinking(false), 150);
     }, 3000 + Math.random() * 3000);
     return () => clearInterval(blinkInterval);
+  }, []);
+
+  useEffect(() => {
+    let start = 0;
+    const animate = (ts: number) => {
+      if (!start) start = ts;
+      const t = (ts - start) / 1000;
+      setBreathe(Math.sin(t * 1.2) * 4);
+      breatheRaf.current = requestAnimationFrame(animate);
+    };
+    breatheRaf.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(breatheRaf.current);
   }, []);
 
   useEffect(() => {
@@ -37,6 +51,8 @@ export function AnimeCharacter() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const kaguneOpacity = 0.35 + Math.abs(breathe) / 20;
+
   return (
     <div
       ref={containerRef}
@@ -52,15 +68,16 @@ export function AnimeCharacter() {
       }}
     >
       <svg
-        viewBox="0 0 320 480"
+        viewBox="0 0 320 560"
         width="100%"
         height="100%"
+        preserveAspectRatio="xMidYMid meet"
         style={{
-          filter: hovering
-            ? "drop-shadow(0 0 30px rgba(220,20,20,0.6))"
-            : "drop-shadow(0 0 15px rgba(220,20,20,0.3))",
+          transform: `translateY(${breathe}px) ${hovering ? "scale(1.03)" : "scale(1)"}`,
           transition: "filter 0.3s ease",
-          transform: hovering ? "scale(1.03)" : "scale(1)",
+          filter: hovering
+            ? "drop-shadow(0 0 40px rgba(220,20,20,0.7))"
+            : "drop-shadow(0 0 20px rgba(220,20,20,0.35))",
         }}
       >
         <defs>
@@ -111,11 +128,43 @@ export function AnimeCharacter() {
         <rect x="138" y="310" width="44" height="50" rx="8" fill="url(#skinGrad)" />
 
         <path
-          d="M60 480 L80 330 Q100 310 138 318 L138 360 L160 340 L182 360 L182 318 Q220 310 240 330 L260 480 Z"
+          d="M60 382 L80 330 Q100 310 138 318 L138 360 L160 340 L182 360 L182 318 Q220 310 240 330 L260 382 Z"
           fill="#1a1a1a"
         />
         <path d="M138 318 L138 380 L160 355 L182 380 L182 318" fill="#111111" />
-        <line x1="160" y1="355" x2="160" y2="480" stroke="#2a2a2a" strokeWidth="2" />
+        <line x1="160" y1="355" x2="160" y2="382" stroke="#2a2a2a" strokeWidth="2" />
+
+        <rect x="110" y="370" width="100" height="12" rx="4" fill="#2a2a2a" />
+        <rect x="148" y="366" width="24" height="20" rx="3" fill="#F5C518" />
+        <rect x="152" y="370" width="16" height="12" rx="2" fill="#1a1a1a" />
+
+        <path
+          d="M110 382 L100 480 L140 480 L160 430 L180 480 L220 480 L210 382 Z"
+          fill="#111111"
+        />
+        <line x1="140" y1="382" x2="132" y2="480" stroke="#1a1a1a" strokeWidth="2" />
+        <line x1="180" y1="382" x2="188" y2="480" stroke="#1a1a1a" strokeWidth="2" />
+
+        <path
+          d="M100 470 L95 530 Q95 545 115 545 L145 545 L145 480 L100 480 Z"
+          fill="#0a0a0a"
+        />
+        <path
+          d="M175 480 L175 545 L205 545 Q225 545 225 530 L220 470 Z"
+          fill="#0a0a0a"
+        />
+        <path
+          d="M100 490 Q108 485 115 490"
+          fill="none"
+          stroke="#2a2a2a"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M205 490 Q213 485 220 490"
+          fill="none"
+          stroke="#2a2a2a"
+          strokeWidth="1.5"
+        />
 
         <path
           d="M125 315 Q160 335 195 315 L195 325 Q160 345 125 325 Z"
@@ -250,6 +299,29 @@ export function AnimeCharacter() {
             strokeWidth="1.5"
             opacity="0.6"
           />
+          {hovering && (
+            <>
+              <ellipse
+                cx="202"
+                cy="185"
+                rx="28"
+                ry="22"
+                fill="none"
+                stroke="#ff0000"
+                strokeWidth="1"
+                opacity="0.4"
+                style={{ filter: "blur(3px)" }}
+              />
+              <ellipse
+                cx="202"
+                cy="185"
+                rx="35"
+                ry="28"
+                fill="rgba(255,0,0,0.06)"
+                style={{ filter: "blur(8px)" }}
+              />
+            </>
+          )}
           {blinking && (
             <ellipse cx="202" cy="185" rx="22" ry="16" fill="url(#skinGrad)" />
           )}
@@ -318,7 +390,7 @@ export function AnimeCharacter() {
           fill="none"
           stroke="#cc0000"
           strokeWidth="3"
-          opacity="0.4"
+          opacity={kaguneOpacity}
           strokeLinecap="round"
           style={{ filter: "drop-shadow(0 0 8px #ff0000)" }}
         />
@@ -327,7 +399,7 @@ export function AnimeCharacter() {
           fill="none"
           stroke="#880000"
           strokeWidth="2"
-          opacity="0.3"
+          opacity={kaguneOpacity * 0.75}
           strokeLinecap="round"
         />
       </svg>

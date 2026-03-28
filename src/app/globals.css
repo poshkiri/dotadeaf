@@ -65,8 +65,9 @@ h6 {
   position: relative;
   overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   padding: 8rem 1.25rem 4rem;
 }
 
@@ -134,13 +135,18 @@ h6 {
   }
 }
 
+@media (min-width: 769px) {
+  .home-hero-text-col {
+    max-width: min(520px, calc(100% - 560px));
+  }
+}
+
 @media (max-width: 768px) {
   .hero-3d-col {
     display: none !important;
   }
 
   .home-hero-inner {
-    flex-direction: column;
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
   }
@@ -177,23 +183,6 @@ h6 {
     opacity: 1;
   }
   50% {
-    opacity: 0;
-  }
-}
-
-@keyframes scan {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
     opacity: 0;
   }
 }

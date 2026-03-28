@@ -87,8 +87,9 @@ export function HomePage() {
           overflow: "hidden",
           minHeight: "100vh",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "stretch",
+          justifyContent: "flex-start",
           paddingTop: "80px",
           paddingBottom: "64px",
           paddingLeft: "20px",
@@ -145,36 +146,22 @@ export function HomePage() {
           }}
         />
         <div
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background:
-              "linear-gradient(90deg, transparent, rgba(245,197,24,0.3), transparent)",
-            animation: "scan 6s ease-in-out infinite",
-            animationDelay: "2s",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-
-        <div
           className="home-hero-inner"
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "24px",
+            flex: 1,
             width: "100%",
             maxWidth: "1100px",
             margin: "0 auto",
             padding: "0 40px",
             position: "relative",
             zIndex: 1,
+            minHeight: 0,
           }}
         >
-          <div className="home-hero-text-col" style={{ flex: 1, maxWidth: "520px" }}>
+          <div
+            className="home-hero-text-col"
+            style={{ position: "relative", zIndex: 2, maxWidth: "520px" }}
+          >
             <p className="home-hero-badge">{t("hero.badge")}</p>
             <h1 className="home-hero-title">
               <span>{t("hero.title1")}</span>
@@ -220,10 +207,14 @@ export function HomePage() {
           <div
             className="hero-3d-col"
             style={{
-              width: "480px",
-              height: "520px",
-              flexShrink: 0,
-              position: "relative",
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: 0,
+              width: "520px",
+              maxHeight: "700px",
+              height: "100%",
+              zIndex: 1,
             }}
           >
             <AnimeCharacter />
