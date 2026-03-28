@@ -3,14 +3,14 @@ import { fetchPublicPlayers } from "@/services/players/searchPlayers";
 import { getTranslations } from "next-intl/server";
 
 type PlayersPageProps = {
-  searchParams?: {
+  searchParams: Promise<{
     rank?: string;
     preferredRole?: string;
     language?: string;
     region?: string;
     lookingForTeam?: string;
     query?: string;
-  };
+  }>;
 };
 
 const RANK_OPTIONS = [
@@ -42,19 +42,20 @@ function normalizeText(value: string | undefined): string | undefined {
 
 export default async function PlayersPage({ searchParams }: PlayersPageProps) {
   const t = await getTranslations();
-  const lookingForTeamParam = searchParams?.lookingForTeam;
+  const sp = await searchParams;
+  const lookingForTeamParam = sp.lookingForTeam;
   const filters = {
-    rank: normalizeText(searchParams?.rank),
-    preferredRole: normalizeText(searchParams?.preferredRole),
-    language: normalizeText(searchParams?.language),
-    region: normalizeText(searchParams?.region),
+    rank: normalizeText(sp.rank),
+    preferredRole: normalizeText(sp.preferredRole),
+    language: normalizeText(sp.language),
+    region: normalizeText(sp.region),
     lookingForTeam:
       lookingForTeamParam === "true"
         ? true
         : lookingForTeamParam === "false"
           ? false
           : undefined,
-    query: normalizeText(searchParams?.query),
+    query: normalizeText(sp.query),
   };
 
   const players = await fetchPublicPlayers(filters);

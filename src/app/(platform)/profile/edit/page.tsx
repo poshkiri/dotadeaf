@@ -11,15 +11,16 @@ import { saveProfileForUser } from "@/services/profile/saveProfile";
 import { isProfileSufficientlyCompletedForMvp } from "@/services/auth/profileCompletion";
 
 type EditProfilePageProps = {
-  searchParams?: {
+  searchParams: Promise<{
     error?: string;
-  };
+  }>;
 };
 
 export default async function EditProfilePage({
   searchParams,
 }: EditProfilePageProps) {
   const t = await getTranslations();
+  const sp = await searchParams;
   const { user } = await enforcePlatformRouteAccess({ allowIncompleteProfile: true });
   const profile = await getProfileForViewByUserId(user.id);
 
@@ -79,9 +80,9 @@ export default async function EditProfilePage({
   }
 
   const formError =
-    searchParams?.error === "validation"
+    sp.error === "validation"
       ? t("platform.edit_validation_error")
-      : searchParams?.error === "save"
+      : sp.error === "save"
         ? t("platform.edit_save_error")
         : undefined;
 
