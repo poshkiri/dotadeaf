@@ -119,9 +119,26 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
             <p className="ui-players-empty-desc">{t("players_page.empty_desc")}</p>
           </section>
         ) : (
-          <div className="ui-players-grid">
-            {players.map((player) => (
-              <PlayerCard key={player.id} player={player} />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gap: "16px",
+              marginTop: "24px",
+            }}
+          >
+            {players.map((p) => (
+              <PlayerCard
+                key={p.id}
+                id={p.id}
+                display_name={p.display_name}
+                dota_nickname={p.dota_nickname ?? undefined}
+                rank={p.rank ?? undefined}
+                roles={p.preferred_roles}
+                language={p.language ?? undefined}
+                region={p.region ?? undefined}
+                looking_for_team={p.looking_for_team}
+              />
             ))}
           </div>
         )}
