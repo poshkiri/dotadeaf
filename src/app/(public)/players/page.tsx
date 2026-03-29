@@ -63,8 +63,9 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
   return (
     <main className="ui-page ui-players-layout">
       <header className="ui-players-header">
-        <h1 className="ui-heading-1">{t("players_page.title")}</h1>
-        <p className="ui-muted">{t("players_page.subtitle")}</p>
+        <div className="ui-players-header-accent" aria-hidden />
+        <h1 className="ui-players-title">{t("players_page.title")}</h1>
+        <p className="ui-players-subtitle">{t("players_page.subtitle")}</p>
       </header>
 
       <section aria-label="Players filters" className="ui-section">
@@ -91,18 +92,31 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
 
       <section aria-label="Players results" className="ui-section">
         <header className="ui-players-results-header">
-          <h2 className="ui-heading-2">{t("players_page.results")}</h2>
-          <p className="ui-muted">
+          <h2 className="ui-players-results-title">{t("players_page.results")}</h2>
+          <span className="ui-players-count-badge">
             {players.length === 1
               ? t("players_page.count_one", { count: players.length })
               : t("players_page.count_many", { count: players.length })}
-          </p>
+          </span>
         </header>
 
         {players.length === 0 ? (
-          <section aria-label="No players found" className="ui-card ui-section">
-            <h3 className="ui-heading-2">{t("players_page.empty_title")}</h3>
-            <p className="ui-muted">{t("players_page.empty_desc")}</p>
+          <section aria-label="No players found" className="ui-players-empty">
+            <svg
+              className="ui-players-empty-icon"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="rgba(245,197,24,0.4)"
+              strokeWidth="1.5"
+              aria-hidden
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            <h3 className="ui-players-empty-title">{t("players_page.empty_title")}</h3>
+            <p className="ui-players-empty-desc">{t("players_page.empty_desc")}</p>
           </section>
         ) : (
           <div className="ui-players-grid">

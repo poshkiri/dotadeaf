@@ -41,11 +41,11 @@ export async function PlayersFilters({
       method="get"
       action={actionPath}
       aria-label={t("player_filters.form_aria")}
-      className="ui-form ui-card"
+      className="ui-form ui-players-filters"
     >
-      <fieldset className="ui-form-section">
-        <legend>{t("player_filters.legend")}</legend>
-        <p className="ui-muted">{t("player_filters.desc")}</p>
+      <fieldset className="ui-form-section ui-players-filters-fieldset">
+        <legend className="ui-players-filters-legend">{t("player_filters.legend")}</legend>
+        <p className="ui-players-filters-desc">{t("player_filters.desc")}</p>
 
         <div className="ui-filter-grid">
           {includeTextSearch ? (
@@ -139,9 +139,13 @@ export async function PlayersFilters({
           </div>
         </div>
 
-        <div className="ui-inline-actions">
-          <button type="submit">{t("player_filters.apply")}</button>
-          <a href={actionPath}>{t("player_filters.clear")}</a>
+        <div className="ui-inline-actions ui-players-filters-actions">
+          <button type="submit" className="ui-players-filters-apply">
+            {t("player_filters.apply")}
+          </button>
+          <a href={actionPath} className="ui-players-filters-clear">
+            {t("player_filters.clear")}
+          </a>
         </div>
       </fieldset>
     </form>
