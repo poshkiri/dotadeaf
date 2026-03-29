@@ -107,7 +107,7 @@
     "start_chat": "Start chat"
   },
   "patches": {
-    "title": "Dota 2 patches",
+    "title": "Patches",
     "subtitle": "Russian-language patch updates for dotadeaf users.",
     "lead_before": "Find teammates",
     "lead_after": "Use the full platform by finding teammates and completing your profile.",
@@ -118,6 +118,9 @@
     "meta_desc": "Russian-language Dota 2 patch details: {title}",
     "published_title": "Published patches",
     "empty": "No published patches yet.",
+    "empty_title": "No patches published yet",
+    "empty_desc": "Dota 2 updates in Russian will appear here soon.",
+    "back_to_all": "← All patches",
     "date_missing": "Date not specified",
     "toc_title": "Heroes",
     "toc_empty": "No section anchors",

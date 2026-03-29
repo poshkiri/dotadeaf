@@ -665,13 +665,25 @@ select:focus-visible {
 
 .ui-patches-layout {
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.ui-patches-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.ui-patches-lead {
+  margin: 12px 0 0;
+  color: #71717a;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ui-patches-lead a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.ui-patches-lead a:hover {
+  color: #f5c518;
 }
 
 .ui-patches-list-item {

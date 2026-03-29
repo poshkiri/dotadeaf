@@ -42,10 +42,11 @@ export default async function PatchesPage() {
 
   return (
     <main className="ui-page ui-patches-layout">
-      <header className="ui-patches-header">
-        <h1 className="ui-heading-1">{t("patches.title")}</h1>
-        <p className="ui-muted">{t("patches.subtitle")}</p>
-        <p className="ui-muted">
+      <header className="ui-players-header">
+        <div className="ui-players-header-accent" aria-hidden />
+        <h1 className="ui-players-title">{t("patches.title")}</h1>
+        <p className="ui-players-subtitle">{t("patches.subtitle")}</p>
+        <p className="ui-patches-lead">
           <Link href="/players">{t("patches.lead_before")}</Link>.{" "}
           <Link href="/register">{t("about.create_account")}</Link>.{" "}
           {t("patches.lead_after")}

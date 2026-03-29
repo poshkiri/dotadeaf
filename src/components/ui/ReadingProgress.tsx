@@ -28,9 +28,9 @@ export function ReadingProgress() {
         position: "fixed",
         top: 0,
         left: 0,
+        right: 0,
         zIndex: 100,
         height: "3px",
-        width: "100%",
         background: "rgba(255,255,255,0.05)",
       }}
     >

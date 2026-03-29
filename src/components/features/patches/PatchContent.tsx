@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 type PatchContentProps = {
   title: string;
@@ -95,10 +97,13 @@ function toContentBlocks(content: string): ContentBlock[] {
     }
   };
 
-  const isDiffLine = (line: string) =>
-    line.includes(":") &&
-    (line.includes("+") || line.includes("-")) &&
-    line.length <= 140;
+  const isStandaloneDiffLine = (trimmed: string) => {
+    if (!trimmed.length) return false;
+    if (trimmed[0] === "+") return true;
+    if (trimmed[0] === "-" && !trimmed.startsWith("- ")) return true;
+    if (trimmed[0] === "*" && !trimmed.startsWith("* ")) return true;
+    return false;
+  };
 
   for (const line of lines) {
     const trimmedLine = line.trim();
@@ -140,7 +145,7 @@ function toContentBlocks(content: string): ContentBlock[] {
       continue;
     }
 
-    if (isDiffLine(trimmedLine)) {
+    if (isStandaloneDiffLine(trimmedLine)) {
       flushParagraph();
       flushList();
       flushCode();
@@ -177,38 +182,41 @@ export function getPatchTocItems(content: string): PatchTocItem[] {
 }
 
 function diffRowStyle(line: string): "buff" | "nerf" | "neutral" {
-  const t = line.trim();
-  if (t.startsWith("+")) return "buff";
-  if (t.startsWith("-")) return "nerf";
-  if (t.startsWith("*")) return "neutral";
-  const low = t.toLowerCase();
-  if (low.includes("buff") || low.includes("increase") || low.includes("up") || low.includes("усилен")) {
-    return "buff";
-  }
-  if (low.includes("nerf") || low.includes("decrease") || low.includes("down") || low.includes("ослаб")) {
-    return "nerf";
-  }
+  const s = line.trim();
+  if (s.startsWith("+")) return "buff";
+  if (s.startsWith("-")) return "nerf";
+  if (s.startsWith("*")) return "neutral";
   return "neutral";
 }
 
 const diffStyles = {
   buff: {
-    background: "rgba(34,197,94,0.06)",
-    borderLeft: "3px solid rgba(34,197,94,0.5)",
+    borderLeft: "3px solid rgba(34,197,94,0.6)",
+    background: "rgba(34,197,94,0.05)",
+    padding: "8px 14px",
+    borderRadius: "0 8px 8px 0",
+    color: "#d4d4d8",
   },
   nerf: {
-    background: "rgba(239,68,68,0.06)",
-    borderLeft: "3px solid rgba(239,68,68,0.4)",
+    borderLeft: "3px solid rgba(239,68,68,0.5)",
+    background: "rgba(239,68,68,0.05)",
+    padding: "8px 14px",
+    borderRadius: "0 8px 8px 0",
+    color: "#d4d4d8",
   },
   neutral: {
-    background: "rgba(245,197,24,0.05)",
-    borderLeft: "3px solid rgba(245,197,24,0.35)",
+    borderLeft: "3px solid rgba(245,197,24,0.4)",
+    background: "rgba(245,197,24,0.04)",
+    padding: "8px 14px",
+    borderRadius: "0 8px 8px 0",
+    color: "#d4d4d8",
   },
 } as const;
 
 export function PatchContent({ title, publishedAt, content }: PatchContentProps) {
   const t = useTranslations();
   const locale = useLocale();
+  const [backHover, setBackHover] = useState(false);
   const blocks = toContentBlocks(content);
   const version = extractVersion(title);
 
@@ -216,24 +224,38 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
     <article
       className="patch-article"
       style={{
-        maxWidth: "740px",
+        maxWidth: "720px",
         margin: "0 auto",
-        padding: "40px 24px 80px",
+        padding: "120px 24px 80px",
         width: "100%",
       }}
     >
-      <header style={{ marginBottom: "24px" }}>
+      <header style={{ marginBottom: "0" }}>
+        <Link
+          href="/patches"
+          onMouseEnter={() => setBackHover(true)}
+          onMouseLeave={() => setBackHover(false)}
+          style={{
+            color: backHover ? "#F5C518" : "#71717a",
+            fontSize: "14px",
+            marginBottom: "24px",
+            display: "block",
+            textDecoration: "none",
+            transition: "color 0.15s ease",
+          }}
+        >
+          {t("patches.back_to_all")}
+        </Link>
         {version ? (
           <span
             style={{
               display: "inline-block",
-              fontSize: "12px",
-              fontWeight: 700,
-              color: "#0a0a0a",
-              background: "#F5C518",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#F5C518",
+              background: "rgba(245,197,24,0.1)",
               padding: "4px 12px",
               borderRadius: "9999px",
-              marginBottom: "12px",
             }}
           >
             {version}
@@ -245,13 +267,13 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
             fontSize: "clamp(28px, 4vw, 42px)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
-            margin: version ? "8px 0 0" : "0",
+            margin: "12px 0 0",
             lineHeight: 1.1,
           }}
         >
           {title}
         </h1>
-        <p style={{ color: "#71717a", fontSize: "14px", marginTop: "12px" }}>
+        <p style={{ color: "#71717a", fontSize: "14px", marginTop: "12px", marginBottom: 0 }}>
           <time dateTime={publishedAt ?? undefined}>
             {formatPatchDate(publishedAt, locale, t("patches.date_missing"))}
           </time>
@@ -260,7 +282,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
           style={{
             height: "1px",
             background: "rgba(255,255,255,0.07)",
-            margin: "24px 0 0",
+            margin: "24px 0",
           }}
         />
       </header>
@@ -277,7 +299,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
                   display: "flex",
                   alignItems: "center",
                   gap: "12px",
-                  marginTop: isFirstHeading ? 0 : "32px",
+                  marginTop: isFirstHeading ? 0 : "36px",
                   marginBottom: "12px",
                   paddingBottom: "10px",
                   borderBottom: "1px solid rgba(255,255,255,0.06)",
@@ -312,12 +334,18 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
 
           if (block.type === "list") {
             return (
-              <ul key={`list-${index}`} className="my-4 space-y-2">
+              <ul
+                key={`list-${index}`}
+                style={{
+                  margin: "16px 0",
+                  paddingLeft: "1.25rem",
+                  color: "#a1a1aa",
+                  fontSize: "15px",
+                  lineHeight: 1.8,
+                }}
+              >
                 {block.items.map((item, itemIndex) => (
-                  <li
-                    key={`item-${index}-${itemIndex}`}
-                    className="rounded-md px-2.5 py-1.5 text-zinc-300"
-                  >
+                  <li key={`item-${index}-${itemIndex}`} style={{ marginBottom: "0.35rem" }}>
                     {item}
                   </li>
                 ))}
@@ -327,7 +355,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
 
           if (block.type === "diff") {
             return (
-              <div key={`diff-${index}`} className="mb-3 space-y-1.5">
+              <div key={`diff-${index}`} style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
                 {block.lines.map((line, lineIndex) => {
                   const tone = diffRowStyle(line);
                   const s = diffStyles[tone];
@@ -335,10 +363,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
                     <div
                       key={`diff-line-${index}-${lineIndex}`}
                       style={{
-                        padding: "10px 14px",
-                        borderRadius: "8px",
                         fontSize: "14px",
-                        color: "#d4d4d8",
                         lineHeight: 1.6,
                         ...s,
                       }}
@@ -366,9 +391,9 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
             <p
               key={`paragraph-${index}`}
               style={{
-                color: "#d4d4d8",
+                color: "#a1a1aa",
                 fontSize: "15px",
-                lineHeight: 1.7,
+                lineHeight: 1.8,
                 marginBottom: "1rem",
               }}
             >
