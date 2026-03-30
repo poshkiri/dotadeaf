@@ -5,16 +5,15 @@ import { PatchContent, PatchLayout, getPatchTocItems } from "@/components/featur
 import { fetchPublishedPatchBySlug } from "@/services/patches";
 
 type PatchPageProps = {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({
   params,
 }: PatchPageProps): Promise<Metadata> {
   const t = await getTranslations();
-  const patch = await fetchPublishedPatchBySlug(params.slug);
+  const { slug } = await params;
+  const patch = await fetchPublishedPatchBySlug(slug);
 
   if (!patch) {
     return {
@@ -31,7 +30,8 @@ export async function generateMetadata({
 }
 
 export default async function PatchDetailsPage({ params }: PatchPageProps) {
-  const patch = await fetchPublishedPatchBySlug(params.slug);
+  const { slug } = await params;
+  const patch = await fetchPublishedPatchBySlug(slug);
 
   if (!patch) {
     notFound();
