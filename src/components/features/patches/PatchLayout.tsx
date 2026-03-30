@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
-import type { PatchTocItem } from "./PatchContent";
+import type { PatchTocItem } from "./patchContentParser";
 import { PatchTocSidebar } from "./PatchTocSidebar";
 
 export type { PatchTocItem };

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import type { PatchTocItem } from "./PatchContent";
+import type { PatchTocItem } from "./patchContentParser";
 
 type PatchTocSidebarProps = {
   items: PatchTocItem[];

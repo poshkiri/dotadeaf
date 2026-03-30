@@ -2,5 +2,5 @@ export { PatchList } from "./PatchList";
 export type { PatchListItem } from "./PatchList";
 export { PatchContent } from "./PatchContent";
 export { PatchLayout } from "./PatchLayout";
-export { getPatchTocItems } from "./PatchContent";
-export type { PatchTocItem } from "./PatchContent";
+export { getPatchTocItems } from "./patchContentParser";
+export type { PatchTocItem } from "./patchContentParser";
