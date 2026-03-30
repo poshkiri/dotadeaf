@@ -74,7 +74,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
 
   return (
     <article
-      className="patch-article"
+      className="patch-article patch-content-wrapper"
       style={{
         maxWidth: "720px",
         margin: "0 auto",

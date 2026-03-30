@@ -518,6 +518,7 @@ select:focus-visible {
 .ui-players-grid {
   display: grid;
   gap: 0.875rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .ui-filter-grid {
@@ -569,6 +570,90 @@ select:focus-visible {
 
 @media (min-width: 760px) {
   .ui-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .ui-home-hero {
+    padding: 100px 20px 60px;
+    min-height: 100svh;
+  }
+
+  .ui-home-hero-title {
+    font-size: clamp(42px, 11vw, 64px) !important;
+    letter-spacing: -0.02em;
+  }
+
+  .ui-home-hero-subtitle {
+    font-size: 15px;
+    padding: 0 8px;
+  }
+
+  .ui-home-hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .ui-home-hero-cta-primary,
+  .ui-home-hero-cta-secondary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .ui-home-hero-info-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .players-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ui-players-page {
+    padding: 100px 16px 40px;
+  }
+
+  .patch-toc-sidebar {
+    display: none !important;
+  }
+
+  .patch-content-wrapper {
+    max-width: 100% !important;
+    padding: 100px 16px 40px !important;
+  }
+
+  .patch-card {
+    padding: 16px !important;
+  }
+
+  .patch-version-badge {
+    min-width: 60px !important;
+    font-size: 13px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ui-home-hero {
+    padding: 110px 28px 72px;
+  }
+
+  .ui-players-page {
+    padding: 110px 24px 48px;
+  }
+
+  .filters-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .players-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

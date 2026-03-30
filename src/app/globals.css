@@ -389,6 +389,46 @@ h6 {
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none !important;
+  }
+
+  .navbar-actions {
+    display: none !important;
+  }
+
+  .navbar-hamburger {
+    display: flex !important;
+  }
+
+  button,
+  a {
+    min-height: 44px;
+  }
+
+  .navbar-pill {
+    max-width: calc(100vw - 32px) !important;
+    border-radius: 16px !important;
+  }
+
+  footer {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 16px !important;
+  }
+
+  .particle-canvas {
+    opacity: 0.3 !important;
+  }
+}
+
 .patch-list {
   list-style: none;
   margin: 0;

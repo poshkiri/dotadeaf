@@ -90,12 +90,14 @@ function PatchRow({ patch, detailBasePath, locale, dateFallback }: PatchRowProps
         style={{ textDecoration: "none", color: "inherit", display: "block" }}
       >
         <div
+          className="patch-card"
           style={cardStyle}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "16px", minWidth: 0 }}>
             <div
+              className="patch-version-badge"
               style={{
                 background: "rgba(245,197,24,0.1)",
                 border: "1px solid rgba(245,197,24,0.2)",

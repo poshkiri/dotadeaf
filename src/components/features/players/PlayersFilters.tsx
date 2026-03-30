@@ -47,7 +47,7 @@ export async function PlayersFilters({
         <legend className="ui-players-filters-legend">{t("player_filters.legend")}</legend>
         <p className="ui-players-filters-desc">{t("player_filters.desc")}</p>
 
-        <div className="ui-filter-grid">
+        <div className="ui-filter-grid filters-grid">
           {includeTextSearch ? (
             <div className="ui-field">
               <label htmlFor="players-query">{t("player_filters.search")}</label>

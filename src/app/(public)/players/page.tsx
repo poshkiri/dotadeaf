@@ -61,7 +61,7 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
   const players = await fetchPublicPlayers(filters);
 
   return (
-    <main className="ui-page ui-players-layout">
+    <main className="ui-page ui-players-layout ui-players-page">
       <header className="ui-players-header">
         <div className="ui-players-header-accent" aria-hidden />
         <h1 className="ui-players-title">{t("players_page.title")}</h1>
@@ -119,14 +119,7 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
             <p className="ui-players-empty-desc">{t("players_page.empty_desc")}</p>
           </section>
         ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-              gap: "16px",
-              marginTop: "24px",
-            }}
-          >
+          <div className="ui-players-grid players-grid" style={{ marginTop: "24px" }}>
             {players.map((p) => (
               <PlayerCard
                 key={p.id}
