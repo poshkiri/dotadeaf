@@ -638,6 +638,20 @@ select:focus-visible {
     min-width: 60px !important;
     font-size: 13px !important;
   }
+
+  .about-page {
+    padding: 100px 16px 60px !important;
+  }
+
+  .about-mission-block,
+  .about-problem-block,
+  .about-cta-block {
+    padding: 24px 20px !important;
+  }
+
+  .about-values-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
