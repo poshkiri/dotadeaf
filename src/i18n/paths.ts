@@ -5,6 +5,7 @@ export const appRoutes = {
   about: "/about",
   login: "/login",
   register: "/register",
+  callback: "/callback",
   dashboard: "/dashboard",
   profile: "/profile",
   profileEdit: "/profile/edit",

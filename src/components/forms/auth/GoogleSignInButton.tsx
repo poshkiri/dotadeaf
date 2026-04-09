@@ -37,7 +37,7 @@ export function GoogleSignInButton({
       const localizedNextPath = getLocaleFromPath(safeNextPath)
         ? safeNextPath
         : getPathWithLocale(safeNextPath, locale);
-      const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+      const redirectTo = `${window.location.origin}${appRoutes.callback}?next=${encodeURIComponent(
         localizedNextPath,
       )}`;
       const supabase = createSupabaseBrowserClient();
