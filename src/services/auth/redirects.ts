@@ -1,7 +1,9 @@
 import "server-only";
 
-const DEFAULT_AUTHENTICATED_PATH = "/dashboard";
-const INCOMPLETE_PROFILE_PATH = "/profile/edit";
+import { appRoutes, getPathWithLocale } from "@/i18n/paths";
+
+const DEFAULT_AUTHENTICATED_PATH = appRoutes.dashboard;
+const INCOMPLETE_PROFILE_PATH = appRoutes.profileEdit;
 
 export function resolveSafeInternalPath(
   value: string | null | undefined,
@@ -22,15 +24,20 @@ export function resolveSafeInternalPath(
 type ResolvePostAuthDestinationParams = {
   isProfileComplete: boolean;
   preferredPath?: string | null;
+  locale?: string | null;
 };
 
 export function resolvePostAuthDestination({
   isProfileComplete,
   preferredPath,
+  locale,
 }: ResolvePostAuthDestinationParams): string {
   if (!isProfileComplete) {
-    return INCOMPLETE_PROFILE_PATH;
+    return getPathWithLocale(INCOMPLETE_PROFILE_PATH, locale);
   }
 
-  return resolveSafeInternalPath(preferredPath, DEFAULT_AUTHENTICATED_PATH);
+  return resolveSafeInternalPath(
+    preferredPath,
+    getPathWithLocale(DEFAULT_AUTHENTICATED_PATH, locale),
+  );
 }

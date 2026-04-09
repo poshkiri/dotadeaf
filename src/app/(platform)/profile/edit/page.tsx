@@ -1,8 +1,9 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import { enforcePlatformRouteAccess } from "@/services/auth/routeProtection";
 import { ProfileEditForm } from "@/components/forms/profile";
 import { getProfileForViewByUserId } from "@/services/profile/readProfile";
+import { appRoutes, getPathWithLocale } from "@/i18n/paths";
 import {
   normalizeMvpProfileFormInput,
   validateMvpProfileForm,
@@ -20,6 +21,7 @@ export default async function EditProfilePage({
   searchParams,
 }: EditProfilePageProps) {
   const t = await getTranslations();
+  const locale = await getLocale();
   const sp = await searchParams;
   const { user } = await enforcePlatformRouteAccess({ allowIncompleteProfile: true });
   const profile = await getProfileForViewByUserId(user.id);
@@ -60,7 +62,7 @@ export default async function EditProfilePage({
     });
 
     if (!validation.isValid) {
-      redirect("/profile/edit?error=validation");
+      redirect(`${getPathWithLocale(appRoutes.profileEdit, locale)}?error=validation`);
     }
 
     try {
@@ -70,12 +72,12 @@ export default async function EditProfilePage({
       });
 
       if (isProfileSufficientlyCompletedForMvp(validation.values)) {
-        redirect("/dashboard");
+        redirect(getPathWithLocale(appRoutes.dashboard, locale));
       }
 
-      redirect("/profile/edit");
+      redirect(getPathWithLocale(appRoutes.profileEdit, locale));
     } catch {
-      redirect("/profile/edit?error=save");
+      redirect(`${getPathWithLocale(appRoutes.profileEdit, locale)}?error=save`);
     }
   }
 

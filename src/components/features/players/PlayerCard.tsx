@@ -2,9 +2,11 @@
 
 import { useCallback, useMemo, useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
+import { StartChatButton } from "./StartChatButton";
 
 export interface PlayerCardProps {
   id: string;
+  user_id?: string;
   display_name: string;
   dota_nickname?: string;
   rank?: string;
@@ -13,6 +15,8 @@ export interface PlayerCardProps {
   region?: string;
   looking_for_team?: boolean;
   created_at?: string;
+  current_user_id?: string;
+  start_chat_action?: (formData: FormData) => void | Promise<void>;
 }
 
 function firstInitial(name: string): string {
@@ -56,6 +60,7 @@ const cardBaseStyle: CSSProperties = {
 };
 
 export function PlayerCard({
+  user_id,
   display_name,
   dota_nickname,
   rank,
@@ -63,6 +68,8 @@ export function PlayerCard({
   language,
   region,
   looking_for_team,
+  current_user_id,
+  start_chat_action,
 }: PlayerCardProps) {
   const t = useTranslations("player_card");
   const [hovered, setHovered] = useState(false);
@@ -89,6 +96,10 @@ export function PlayerCard({
 
   const metaLeft =
     [region?.trim(), language?.trim()].filter(Boolean).join(" · ") || null;
+  const canStartChat =
+    Boolean(start_chat_action) &&
+    Boolean(user_id) &&
+    (!current_user_id || current_user_id !== user_id);
 
   return (
     <article
@@ -204,21 +215,29 @@ export function PlayerCard({
         <span style={{ color: "#71717a", fontSize: 12 }}>
           {metaLeft ?? "\u00a0"}
         </span>
-        {looking_for_team ? (
-          <span
-            style={{
-              background: "rgba(245,197,24,0.1)",
-              color: "#F5C518",
-              fontSize: 11,
-              fontWeight: 600,
-              padding: "3px 10px",
-              borderRadius: 9999,
-              flexShrink: 0,
-            }}
-          >
-            {t("looking_yes")}
-          </span>
-        ) : null}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+          {looking_for_team ? (
+            <span
+              style={{
+                background: "rgba(245,197,24,0.1)",
+                color: "#F5C518",
+                fontSize: 11,
+                fontWeight: 600,
+                padding: "3px 10px",
+                borderRadius: 9999,
+                flexShrink: 0,
+              }}
+            >
+              {t("looking_yes")}
+            </span>
+          ) : null}
+          {canStartChat ? (
+            <form action={start_chat_action}>
+              <input type="hidden" name="other_user_id" value={user_id} />
+              <StartChatButton />
+            </form>
+          ) : null}
+        </div>
       </div>
     </article>
   );

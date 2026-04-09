@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { appRoutes, getLocaleFromPath, getPathWithLocale } from "@/i18n/paths";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type GoogleSignInButtonProps = {
@@ -11,7 +12,7 @@ type GoogleSignInButtonProps = {
 
 function resolveSafeNextPath(value: string): string {
   if (!value.startsWith("/") || value.startsWith("//")) {
-    return "/dashboard";
+    return appRoutes.dashboard;
   }
 
   return value;
@@ -19,9 +20,10 @@ function resolveSafeNextPath(value: string): string {
 
 export function GoogleSignInButton({
   label,
-  nextPath = "/dashboard",
+  nextPath = appRoutes.dashboard,
 }: GoogleSignInButtonProps) {
   const t = useTranslations();
+  const locale = useLocale();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
@@ -31,8 +33,11 @@ export function GoogleSignInButton({
       setErrorMessage(undefined);
 
       const safeNextPath = resolveSafeNextPath(nextPath);
+      const localizedNextPath = getLocaleFromPath(safeNextPath)
+        ? safeNextPath
+        : getPathWithLocale(safeNextPath, locale);
       const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-        safeNextPath,
+        localizedNextPath,
       )}`;
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.auth.signInWithOAuth({

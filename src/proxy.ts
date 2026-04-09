@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
+import { getSupabasePublicEnv } from "@/lib/supabase/env";
 import { routing } from "@/i18n/routing";
 
 const handleI18nRouting = createIntlMiddleware(routing);
@@ -24,10 +25,11 @@ export async function proxy(request: NextRequest) {
   }
 
   let supabaseResponse = i18nResponse;
+  const { url, anonKey } = getSupabasePublicEnv();
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     {
       cookies: {
         getAll() {
@@ -53,7 +55,12 @@ export async function proxy(request: NextRequest) {
   // It silently exchanges expired access tokens using the refresh token in cookies.
   // getUser() makes a network request to Supabase Auth — this is intentional
   // and is the only reliable way to validate the token server-side.
-  await supabase.auth.getUser();
+  try {
+    await supabase.auth.getUser();
+  } catch {
+    // Preserve public routing even if auth refresh is temporarily unavailable.
+    return i18nResponse;
+  }
 
   return supabaseResponse;
 }

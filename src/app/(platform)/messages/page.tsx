@@ -1,12 +1,21 @@
 import { enforcePlatformRouteAccess } from "@/services/auth/routeProtection";
 import { ConversationList } from "@/components/features/chat";
+import type { ConversationSummary } from "@/services/chat";
 import { fetchConversationSummaries } from "@/services/chat";
 import { getTranslations } from "next-intl/server";
 
 export default async function MessagesPage() {
   const t = await getTranslations();
   const { user } = await enforcePlatformRouteAccess();
-  const summaries = await fetchConversationSummaries(user.id);
+  let summaries: ConversationSummary[] = [];
+  let messagesLoadFailed = false;
+
+  try {
+    summaries = await fetchConversationSummaries(user.id);
+  } catch {
+    messagesLoadFailed = true;
+  }
+
   const conversationItems = summaries.map((summary) => ({
     id: summary.id,
     otherParticipant: {
@@ -25,7 +34,14 @@ export default async function MessagesPage() {
       </header>
 
       <section aria-label={t("platform.conversation_list")} className="ui-section">
-        <ConversationList conversations={conversationItems} />
+        <ConversationList
+          conversations={conversationItems}
+          emptyStateText={
+            messagesLoadFailed
+              ? t("platform.messages_unavailable")
+              : undefined
+          }
+        />
       </section>
 
       <section aria-label={t("platform.open_conversation")} className="ui-card ui-section">

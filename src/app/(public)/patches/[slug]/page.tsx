@@ -13,7 +13,17 @@ export async function generateMetadata({
 }: PatchPageProps): Promise<Metadata> {
   const t = await getTranslations();
   const { slug } = await params;
-  const patch = await fetchPublishedPatchBySlug(slug);
+  let patch = null;
+
+  try {
+    patch = await fetchPublishedPatchBySlug(slug);
+  } catch {
+    return {
+      title: t("patches.unavailable_title"),
+      description: t("patches.unavailable_desc"),
+      robots: { index: false, follow: false },
+    };
+  }
 
   if (!patch) {
     return {
@@ -30,8 +40,22 @@ export async function generateMetadata({
 }
 
 export default async function PatchDetailsPage({ params }: PatchPageProps) {
+  const t = await getTranslations();
   const { slug } = await params;
-  const patch = await fetchPublishedPatchBySlug(slug);
+  let patch = null;
+
+  try {
+    patch = await fetchPublishedPatchBySlug(slug);
+  } catch {
+    return (
+      <main className="ui-page ui-patches-layout">
+        <section className="ui-card ui-section" aria-label={t("patches.title")}>
+          <h1 className="ui-heading-1">{t("patches.unavailable_title")}</h1>
+          <p className="ui-muted">{t("patches.unavailable_desc")}</p>
+        </section>
+      </main>
+    );
+  }
 
   if (!patch) {
     notFound();

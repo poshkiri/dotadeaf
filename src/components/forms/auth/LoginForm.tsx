@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useRouter } from "@/i18n/navigation";
+import { appRoutes } from "@/i18n/paths";
 import { AuthFormField } from "./AuthFormField";
 import { AuthFormMessage } from "./AuthFormMessage";
 
@@ -60,7 +61,7 @@ export function LoginForm({
         return;
       }
 
-      router.push("/dashboard");
+      router.push(appRoutes.dashboard);
       router.refresh();
     } catch {
       setFormMessage(t("auth_form.login_failed"));

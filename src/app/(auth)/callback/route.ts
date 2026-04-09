@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { appRoutes, getLocaleFromPath, getPathWithLocale } from "@/i18n/paths";
 import { getSupabasePublicEnv } from "@/lib/supabase/env";
 import {
   getProfileByUserId,
@@ -14,7 +15,8 @@ export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const preferredPath = resolveSafeInternalPath(requestUrl.searchParams.get("next"));
-  const loginUrl = new URL("/login", requestUrl.origin);
+  const locale = getLocaleFromPath(preferredPath);
+  const loginUrl = new URL(getPathWithLocale(appRoutes.login, locale), requestUrl.origin);
 
   if (!code) {
     loginUrl.searchParams.set("error", "oauth_callback_missing_code");
@@ -56,6 +58,7 @@ export async function GET(request: NextRequest) {
   const destination = resolvePostAuthDestination({
     isProfileComplete,
     preferredPath,
+    locale,
   });
 
   response = NextResponse.redirect(new URL(destination, requestUrl.origin));

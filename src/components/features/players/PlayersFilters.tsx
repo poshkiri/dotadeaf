@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 type PlayersFilterValues = {
   rank?: string;
@@ -19,15 +20,13 @@ type PlayersFiltersProps = {
   includeTextSearch?: boolean;
 };
 
-const DEFAULT_ACTION_PATH = "/players";
-
 function selectValue(value: string | undefined): string {
   return value ?? "";
 }
 
 export async function PlayersFilters({
   values,
-  actionPath = DEFAULT_ACTION_PATH,
+  actionPath,
   rankOptions = [],
   preferredRoleOptions = [],
   languageOptions = [],
@@ -143,9 +142,9 @@ export async function PlayersFilters({
           <button type="submit" className="ui-players-filters-apply">
             {t("player_filters.apply")}
           </button>
-          <a href={actionPath} className="ui-players-filters-clear">
+          <Link href="/players" className="ui-players-filters-clear">
             {t("player_filters.clear")}
-          </a>
+          </Link>
         </div>
       </fieldset>
     </form>

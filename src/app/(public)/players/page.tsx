@@ -1,6 +1,18 @@
 import { PlayerCard, PlayersFilters } from "@/components/features/players";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
+import { appRoutes, getPathWithLocale } from "@/i18n/paths";
+import { createOrGetDirectConversation } from "@/services/chat";
+import type { PublicPlayerProfile } from "@/services/players/searchPlayers";
 import { fetchPublicPlayers } from "@/services/players/searchPlayers";
-import { getTranslations } from "next-intl/server";
+import {
+  normalizePlayerFilterValue,
+  PLAYER_LANGUAGE_OPTIONS,
+  PLAYER_RANK_OPTIONS,
+  PLAYER_REGION_OPTIONS,
+  PLAYER_ROLE_OPTIONS,
+} from "@/services/players/filters";
 
 type PlayersPageProps = {
   searchParams: Promise<{
@@ -13,52 +25,62 @@ type PlayersPageProps = {
   }>;
 };
 
-const RANK_OPTIONS = [
-  "Herald",
-  "Guardian",
-  "Crusader",
-  "Archon",
-  "Legend",
-  "Ancient",
-  "Divine",
-  "Immortal",
-];
-
-const PREFERRED_ROLE_OPTIONS = [
-  "Carry",
-  "Mid",
-  "Offlane",
-  "Soft Support",
-  "Hard Support",
-];
-
-const LANGUAGE_OPTIONS = ["Russian", "English"];
-const REGION_OPTIONS = ["EU West", "EU East", "Russia", "CIS"];
-
-function normalizeText(value: string | undefined): string | undefined {
-  const trimmed = value?.trim();
-  return trimmed ? trimmed : undefined;
-}
-
 export default async function PlayersPage({ searchParams }: PlayersPageProps) {
   const t = await getTranslations();
+  const locale = await getLocale();
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   const sp = await searchParams;
   const lookingForTeamParam = sp.lookingForTeam;
   const filters = {
-    rank: normalizeText(sp.rank),
-    preferredRole: normalizeText(sp.preferredRole),
-    language: normalizeText(sp.language),
-    region: normalizeText(sp.region),
+    rank: normalizePlayerFilterValue(sp.rank),
+    preferredRole: normalizePlayerFilterValue(sp.preferredRole),
+    language: normalizePlayerFilterValue(sp.language),
+    region: normalizePlayerFilterValue(sp.region),
     lookingForTeam:
       lookingForTeamParam === "true"
         ? true
         : lookingForTeamParam === "false"
           ? false
           : undefined,
-    query: normalizeText(sp.query),
+    query: normalizePlayerFilterValue(sp.query),
   };
 
-  const players = await fetchPublicPlayers(filters);
+  let players: PublicPlayerProfile[] = [];
+  let playersLoadFailed = false;
+
+  try {
+    players = await fetchPublicPlayers(filters);
+  } catch {
+    playersLoadFailed = true;
+  }
+
+  async function startChatAction(formData: FormData) {
+    "use server";
+
+    const supabase = await createSupabaseServerClient();
+    const {
+      data: { user: currentUser },
+    } = await supabase.auth.getUser();
+
+    if (!currentUser) {
+      redirect(getPathWithLocale(appRoutes.login, locale));
+    }
+
+    const otherUserId = String(formData.get("other_user_id") ?? "").trim();
+    if (!otherUserId) {
+      redirect(getPathWithLocale(appRoutes.players, locale));
+    }
+
+    const conversation = await createOrGetDirectConversation({
+      currentUserId: currentUser.id,
+      otherUserId,
+    });
+
+    redirect(getPathWithLocale(`${appRoutes.messages}/${conversation.id}`, locale));
+  }
 
   return (
     <main className="ui-page ui-players-layout ui-players-page">
@@ -83,10 +105,10 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
                 : "",
             query: filters.query,
           }}
-          rankOptions={RANK_OPTIONS}
-          preferredRoleOptions={PREFERRED_ROLE_OPTIONS}
-          languageOptions={LANGUAGE_OPTIONS}
-          regionOptions={REGION_OPTIONS}
+          rankOptions={[...PLAYER_RANK_OPTIONS]}
+          preferredRoleOptions={[...PLAYER_ROLE_OPTIONS]}
+          languageOptions={[...PLAYER_LANGUAGE_OPTIONS]}
+          regionOptions={[...PLAYER_REGION_OPTIONS]}
         />
       </section>
 
@@ -100,7 +122,12 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
           </span>
         </header>
 
-        {players.length === 0 ? (
+        {playersLoadFailed ? (
+          <section aria-label="Players temporarily unavailable" className="ui-players-empty">
+            <h3 className="ui-players-empty-title">{t("players_page.unavailable_title")}</h3>
+            <p className="ui-players-empty-desc">{t("players_page.unavailable_desc")}</p>
+          </section>
+        ) : players.length === 0 ? (
           <section aria-label="No players found" className="ui-players-empty">
             <svg
               className="ui-players-empty-icon"
@@ -124,6 +151,7 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
               <PlayerCard
                 key={p.id}
                 id={p.id}
+                user_id={p.user_id}
                 display_name={p.display_name}
                 dota_nickname={p.dota_nickname ?? undefined}
                 rank={p.rank ?? undefined}
@@ -131,6 +159,8 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
                 language={p.language ?? undefined}
                 region={p.region ?? undefined}
                 looking_for_team={p.looking_for_team}
+                current_user_id={user?.id}
+                start_chat_action={startChatAction}
               />
             ))}
           </div>

@@ -84,6 +84,8 @@
     "results": "Results",
     "count_one": "{count} player",
     "count_many": "{count} players",
+    "unavailable_title": "Players are temporarily unavailable",
+    "unavailable_desc": "The player directory could not be loaded right now. Please try again a little later.",
     "empty_title": "No players found",
     "empty_desc": "Try clearing some filters or broadening your search criteria."
   },
@@ -114,7 +116,8 @@
     "role_not_specified": "Role not specified",
     "looking_yes": "Looking for team",
     "looking_no": "Not looking for team",
-    "start_chat": "Start chat"
+    "start_chat": "Start chat",
+    "starting_chat": "Opening..."
   },
   "patches": {
     "title": "Patches",
@@ -127,6 +130,8 @@
     "not_found_desc": "The requested patch is unavailable.",
     "meta_desc": "Russian-language Dota 2 patch details: {title}",
     "published_title": "Published patches",
+    "unavailable_title": "Patches are temporarily unavailable",
+    "unavailable_desc": "The patch list could not be loaded right now. Please try again later.",
     "empty": "No published patches yet.",
     "empty_title": "No patches published yet",
     "empty_desc": "Dota 2 updates in Russian will appear here soon.",
@@ -194,12 +199,14 @@
     "open_patches": "Open patches",
     "messages_title": "Messages",
     "messages_subtitle": "Select a conversation to view messages.",
+    "messages_unavailable": "The conversation list could not be loaded. Please try again later.",
     "conversation_list": "Conversation list",
     "open_conversation": "Open a conversation",
     "open_conversation_desc": "Choose a conversation from the list above to read and send messages.",
     "open_conversation_hint": "No conversations yet? Find players on the public listing and start from there.",
     "conversation_title": "Conversation",
     "conversation_subtitle": "Read the thread and continue messaging.",
+    "conversation_unavailable": "This conversation is temporarily unavailable. Please try again later.",
     "back_to_conversations": "Back to all conversations",
     "conversation_messages": "Conversation messages",
     "send_message": "Send message",

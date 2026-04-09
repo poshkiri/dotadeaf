@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
@@ -6,6 +7,8 @@ import {
   isProfileSufficientlyCompletedForMvp,
 } from "@/services/auth/profileBootstrap";
 import { resolvePostAuthDestination } from "@/services/auth/redirects";
+
+export const dynamic = "force-dynamic";
 
 export default async function AuthLayout({
   children,
@@ -16,11 +19,12 @@ export default async function AuthLayout({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const locale = await getLocale();
 
   if (user) {
     const profile = await getProfileByUserId(user.id);
     const isProfileComplete = isProfileSufficientlyCompletedForMvp(profile);
-    redirect(resolvePostAuthDestination({ isProfileComplete }));
+    redirect(resolvePostAuthDestination({ isProfileComplete, locale }));
   }
 
   return <>{children}</>;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { PatchList } from "@/components/features/patches";
+import type { PublishedPatchListItem } from "@/services/patches";
 import { fetchPublishedPatches } from "@/services/patches";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,7 +29,15 @@ function buildPatchSummary(
 
 export default async function PatchesPage() {
   const t = await getTranslations();
-  const patches = await fetchPublishedPatches();
+  let patches: PublishedPatchListItem[] = [];
+  let patchesLoadFailed = false;
+
+  try {
+    patches = await fetchPublishedPatches();
+  } catch {
+    patchesLoadFailed = true;
+  }
+
   const patchItems = patches.map((patch) => ({
     slug: patch.slug,
     title: patch.title_ru,
@@ -53,7 +62,14 @@ export default async function PatchesPage() {
         </p>
       </header>
 
-      <PatchList patches={patchItems} />
+      {patchesLoadFailed ? (
+        <section className="ui-card ui-section" aria-label={t("patches.title")}>
+          <h2 className="ui-heading-2">{t("patches.unavailable_title")}</h2>
+          <p className="ui-muted">{t("patches.unavailable_desc")}</p>
+        </section>
+      ) : (
+        <PatchList patches={patchItems} />
+      )}
     </main>
   );
 }

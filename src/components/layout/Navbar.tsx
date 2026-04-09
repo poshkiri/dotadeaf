@@ -13,10 +13,6 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!menuOpen) {
       document.body.style.overflow = "";
       return;
@@ -26,6 +22,10 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
 
   return (
     <motion.header
@@ -93,6 +93,7 @@ export function Navbar() {
             <Link
               key={href}
               href={href}
+              onClick={closeMenu}
               style={{
                 color: "#a1a1aa",
                 fontSize: "14px",
@@ -110,7 +111,10 @@ export function Navbar() {
         <div className="navbar-actions" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <button
             type="button"
-            onClick={() => router.replace(pathname, { locale: nextLocale })}
+            onClick={() => {
+              closeMenu();
+              router.replace(pathname, { locale: nextLocale });
+            }}
             style={{
               border: "1px solid rgba(245,197,24,0.25)",
               borderRadius: "9999px",
@@ -129,6 +133,7 @@ export function Navbar() {
           </button>
           <Link
             href="/login"
+            onClick={closeMenu}
             style={{
               color: "#a1a1aa",
               fontSize: "14px",
@@ -143,6 +148,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/register"
+            onClick={closeMenu}
             style={{
               background: "#F5C518",
               color: "#0a0a0a",
@@ -234,6 +240,7 @@ export function Navbar() {
             <Link
               key={`mobile-${href}`}
               href={href}
+              onClick={closeMenu}
               style={{
                 fontSize: "24px",
                 color: "#fafafa",
@@ -257,6 +264,7 @@ export function Navbar() {
           >
             <Link
               href="/login"
+              onClick={closeMenu}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -273,6 +281,7 @@ export function Navbar() {
             </Link>
             <Link
               href="/register"
+              onClick={closeMenu}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
