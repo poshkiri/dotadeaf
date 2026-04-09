@@ -32,6 +32,14 @@ export default async function DashboardPage() {
 
       <section className="ui-platform-grid" aria-label={t("platform.quick_nav")}>
         <article className="ui-card ui-section">
+          <h2 className="ui-heading-2">{t("platform.profile_card_title")}</h2>
+          <p className="ui-muted">{t("platform.profile_card_desc")}</p>
+          <p>
+            <Link href="/profile">{t("platform.open_profile")}</Link>
+          </p>
+        </article>
+
+        <article className="ui-card ui-section">
           <h2 className="ui-heading-2">{t("platform.find_teammates")}</h2>
           <p className="ui-muted">{t("platform.find_teammates_desc")}</p>
           <p>
@@ -52,6 +60,14 @@ export default async function DashboardPage() {
           <p className="ui-muted">{t("platform.patch_updates_desc")}</p>
           <p>
             <Link href="/patches">{t("platform.open_patches")}</Link>
+          </p>
+        </article>
+
+        <article className="ui-card ui-section">
+          <h2 className="ui-heading-2">{t("platform.account_settings")}</h2>
+          <p className="ui-muted">{t("platform.account_settings_desc")}</p>
+          <p>
+            <Link href="/settings">{t("platform.open_settings")}</Link>
           </p>
         </article>
       </section>

@@ -86,7 +86,7 @@ export default async function PlayersPage({ searchParams }: PlayersPageProps) {
     <main className="ui-page ui-players-layout ui-players-page">
       <header className="ui-players-header">
         <div className="ui-players-header-accent" aria-hidden />
-        <p className="ui-players-kicker">Community discovery</p>
+        <p className="ui-players-kicker">{t("players_page.kicker")}</p>
         <h1 className="ui-players-title">{t("players_page.title")}</h1>
         <p className="ui-players-subtitle">{t("players_page.subtitle")}</p>
       </header>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -8,6 +9,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export function InstallBanner() {
+  const t = useTranslations();
   const [prompt, setPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [dismissed, setDismissed] = useState(false);
 
@@ -46,10 +48,10 @@ export function InstallBanner() {
     >
       <div>
         <p style={{ color: "#fafafa", fontWeight: 600, fontSize: "14px", margin: 0 }}>
-          Установить приложение
+          {t("install.title")}
         </p>
         <p style={{ color: "#71717a", fontSize: "12px", margin: "2px 0 0" }}>
-          Добавить dotadeaf на экран
+          {t("install.subtitle")}
         </p>
       </div>
       <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
@@ -65,7 +67,7 @@ export function InstallBanner() {
             cursor: "pointer",
           }}
         >
-          Нет
+          {t("install.dismiss")}
         </button>
         <button
           onClick={async () => {
@@ -84,7 +86,7 @@ export function InstallBanner() {
             cursor: "pointer",
           }}
         >
-          Установить
+          {t("install.confirm")}
         </button>
       </div>
     </div>

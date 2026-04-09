@@ -8,6 +8,7 @@ export const appRoutes = {
   dashboard: "/dashboard",
   profile: "/profile",
   profileEdit: "/profile/edit",
+  settings: "/settings",
   players: "/players",
   patches: "/patches",
   messages: "/messages",

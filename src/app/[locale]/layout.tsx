@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { Navbar } from "@/components/layout/Navbar";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
+import { InstallBanner } from "@/components/ui/InstallBanner";
 
 type LocaleLayoutProps = {
   children: ReactNode;
@@ -42,10 +42,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <Navbar />
-      <main style={{ backgroundColor: "#0a0a0a", paddingTop: "80px" }}>
-        {children}
-      </main>
+      {children}
+      <InstallBanner />
     </NextIntlClientProvider>
   );
 }

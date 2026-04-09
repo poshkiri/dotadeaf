@@ -3,11 +3,18 @@
     "players": "Players",
     "patches": "Patches",
     "about": "About",
+    "dashboard": "Dashboard",
+    "messages": "Messages",
+    "profile": "Profile",
+    "settings": "Settings",
     "login": "Log in",
-    "join": "Join"
+    "join": "Join",
+    "logout": "Log out",
+    "logging_out": "Signing out..."
   },
   "hero": {
     "badge": "Built for deaf players • Dota 2",
+    "kicker": "Team discovery for deaf players",
     "title1": "Find your",
     "title2": "silent squad",
     "subtitle": "Clear profiles, practical matchmaking filters, one-to-one chat, and Russian patch coverage in one focused platform.",
@@ -58,6 +65,8 @@
   "about": {
     "title": "About the project",
     "subtitle": "Why we built dotadeaf",
+    "kicker": "Why dotadeaf exists",
+    "values_kicker": "What the platform offers",
     "mission_label": "Mission",
     "mission_title": "Gaming without barriers",
     "mission_text": "dotadeaf is built for deaf and hard-of-hearing Dota 2 players who need teammates that understand their communication needs. We believe every player deserves a team where they feel comfortable.",
@@ -79,6 +88,7 @@
     "create_account": "create your account"
   },
   "players_page": {
+    "kicker": "Community discovery",
     "title": "Players",
     "subtitle": "Find players using simple filters.",
     "results": "Results",
@@ -120,6 +130,7 @@
     "starting_chat": "Opening..."
   },
   "patches": {
+    "kicker": "Patch notes and meta in Russian",
     "title": "Patches",
     "subtitle": "Russian-language patch updates for dotadeaf users.",
     "lead_before": "Find teammates",
@@ -175,8 +186,15 @@
     "creating_account": "Creating account...",
     "create_account": "Create account",
     "google_failed": "Google sign-in failed. Please try again.",
+    "oauth_failed": "Google sign-in could not be completed. Please try again.",
     "redirecting": "Redirecting...",
     "message_required": "Message cannot be empty."
+  },
+  "install": {
+    "title": "Install the app",
+    "subtitle": "Add dotadeaf to your home screen",
+    "dismiss": "Not now",
+    "confirm": "Install"
   },
   "platform": {
     "footer_hint": "Keep your profile up to date to improve player discovery and messaging.",
@@ -197,6 +215,12 @@
     "patch_updates": "Patch updates",
     "patch_updates_desc": "Read published Russian-language Dota 2 patch content.",
     "open_patches": "Open patches",
+    "profile_card_title": "Your profile",
+    "profile_card_desc": "Review how your profile appears to other players.",
+    "open_profile": "Open profile",
+    "account_settings": "Account settings",
+    "account_settings_desc": "Jump into profile editing and the current account controls.",
+    "open_settings": "Open settings",
     "messages_title": "Messages",
     "messages_subtitle": "Select a conversation to view messages.",
     "messages_unavailable": "The conversation list could not be loaded. Please try again later.",
@@ -234,6 +258,11 @@
     "available_now": "Available now",
     "available_desc": "Profile details, rank, preferred roles, language, region, and availability are managed on the profile edit page.",
     "go_profile_edit": "Go to profile edit",
+    "language_settings_title": "Interface language",
+    "language_settings_desc": "Switch language with the top navigation toggle. Your current route will stay in the selected locale.",
+    "messaging_settings_title": "Messages and contacts",
+    "messaging_settings_desc": "Review active conversations and continue chatting with discovered players.",
+    "back_to_dashboard": "Back to dashboard",
     "edit_title": "Edit profile",
     "edit_subtitle": "Update your MVP profile information.",
     "edit_validation_error": "Please correct the highlighted profile fields and try again.",

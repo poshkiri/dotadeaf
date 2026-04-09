@@ -13,12 +13,30 @@ export default async function SettingsPage() {
         <p className="ui-muted">{t("platform.settings_subtitle")}</p>
       </header>
 
-      <section className="ui-card ui-section" aria-label="Available settings">
-        <h2 className="ui-heading-2">{t("platform.available_now")}</h2>
-        <p className="ui-muted">{t("platform.available_desc")}</p>
-        <p>
-          <Link href="/profile/edit">{t("platform.go_profile_edit")}</Link>
-        </p>
+      <section className="ui-platform-grid" aria-label="Available settings">
+        <article className="ui-card ui-section">
+          <h2 className="ui-heading-2">{t("platform.available_now")}</h2>
+          <p className="ui-muted">{t("platform.available_desc")}</p>
+          <p>
+            <Link href="/profile/edit">{t("platform.go_profile_edit")}</Link>
+          </p>
+        </article>
+
+        <article className="ui-card ui-section">
+          <h2 className="ui-heading-2">{t("platform.language_settings_title")}</h2>
+          <p className="ui-muted">{t("platform.language_settings_desc")}</p>
+          <p>
+            <Link href="/dashboard">{t("platform.back_to_dashboard")}</Link>
+          </p>
+        </article>
+
+        <article className="ui-card ui-section">
+          <h2 className="ui-heading-2">{t("platform.messaging_settings_title")}</h2>
+          <p className="ui-muted">{t("platform.messaging_settings_desc")}</p>
+          <p>
+            <Link href="/messages">{t("platform.open_messages")}</Link>
+          </p>
+        </article>
       </section>
     </main>
   );

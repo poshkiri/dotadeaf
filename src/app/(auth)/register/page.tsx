@@ -5,6 +5,8 @@ import {
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function RegisterPage() {
   const t = await getTranslations();
 

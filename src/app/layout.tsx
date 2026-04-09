@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "@/styles/ui-foundations.css";
 import "@/app/globals.css";
-import { InstallBanner } from "@/components/ui/InstallBanner";
 import { ServiceWorkerRegister } from "@/components/ui/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
@@ -48,7 +47,6 @@ export default function RootLayout({
       <body className="bg-[#0a0a0a] text-zinc-100 antialiased">
         {children}
         <ServiceWorkerRegister />
-        <InstallBanner />
       </body>
     </html>
   );

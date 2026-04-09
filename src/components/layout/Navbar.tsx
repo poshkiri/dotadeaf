@@ -3,14 +3,32 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { appRoutes } from "@/i18n/paths";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 
-export function Navbar() {
+type NavbarProps = {
+  isAuthenticated?: boolean;
+};
+
+export function Navbar({ isAuthenticated = false }: NavbarProps) {
   const t = useTranslations();
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const nextLocale = locale === "ru" ? "en" : "ru";
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigationItems = isAuthenticated
+    ? [
+        { href: appRoutes.players, label: t("nav.players") },
+        { href: appRoutes.messages, label: t("nav.messages") },
+        { href: appRoutes.patches, label: t("nav.patches") },
+        { href: appRoutes.about, label: t("nav.about") },
+      ]
+    : [
+        { href: appRoutes.players, label: t("nav.players") },
+        { href: appRoutes.patches, label: t("nav.patches") },
+        { href: appRoutes.about, label: t("nav.about") },
+      ];
 
   useEffect(() => {
     if (!menuOpen) {
@@ -61,11 +79,7 @@ export function Navbar() {
         </Link>
 
         <div className="navbar-links">
-          {[
-            { href: "/players", label: t("nav.players") },
-            { href: "/patches", label: t("nav.patches") },
-            { href: "/about", label: t("nav.about") },
-          ].map(({ href, label }) => (
+          {navigationItems.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
@@ -93,24 +107,41 @@ export function Navbar() {
           >
             {locale.toUpperCase()}
           </button>
-          <Link
-            href="/login"
-            onClick={closeMenu}
-            className="navbar-login-link"
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
-          >
-            {t("nav.login")}
-          </Link>
-          <Link
-            href="/register"
-            onClick={closeMenu}
-            className="navbar-join-link"
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#d4a017")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#F5C518")}
-          >
-            {t("nav.join")}
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link
+                href={appRoutes.profile}
+                onClick={closeMenu}
+                className="navbar-login-link"
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
+              >
+                {t("nav.profile")}
+              </Link>
+              <SignOutButton className="navbar-logout-button" variant="pill" />
+            </>
+          ) : (
+            <>
+              <Link
+                href={appRoutes.login}
+                onClick={closeMenu}
+                className="navbar-login-link"
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
+              >
+                {t("nav.login")}
+              </Link>
+              <Link
+                href={appRoutes.register}
+                onClick={closeMenu}
+                className="navbar-join-link"
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#d4a017")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#F5C518")}
+              >
+                {t("nav.join")}
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -179,11 +210,7 @@ export function Navbar() {
             padding: "16px",
           }}
         >
-          {[
-            { href: "/players", label: t("nav.players") },
-            { href: "/patches", label: t("nav.patches") },
-            { href: "/about", label: t("nav.about") },
-          ].map(({ href, label }) => (
+          {navigationItems.map(({ href, label }) => (
             <Link
               key={`mobile-${href}`}
               href={href}
@@ -209,41 +236,69 @@ export function Navbar() {
               maxWidth: "280px",
             }}
           >
-            <Link
-              href="/login"
-              onClick={closeMenu}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#a1a1aa",
-                fontSize: "14px",
-                textDecoration: "none",
-                border: "1px solid rgba(245,197,24,0.25)",
-                borderRadius: "9999px",
-                padding: "10px 12px",
-              }}
-            >
-              {t("nav.login")}
-            </Link>
-            <Link
-              href="/register"
-              onClick={closeMenu}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#F5C518",
-                color: "#0a0a0a",
-                fontSize: "14px",
-                fontWeight: 700,
-                padding: "10px 12px",
-                borderRadius: "9999px",
-                textDecoration: "none",
-              }}
-            >
-              {t("nav.join")}
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  href={appRoutes.profile}
+                  onClick={closeMenu}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#a1a1aa",
+                    fontSize: "14px",
+                    textDecoration: "none",
+                    border: "1px solid rgba(245,197,24,0.25)",
+                    borderRadius: "9999px",
+                    padding: "10px 12px",
+                  }}
+                >
+                  {t("nav.profile")}
+                </Link>
+                <SignOutButton
+                  className="navbar-mobile-logout-button"
+                  variant="pill"
+                />
+              </>
+            ) : (
+              <>
+                <Link
+                  href={appRoutes.login}
+                  onClick={closeMenu}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#a1a1aa",
+                    fontSize: "14px",
+                    textDecoration: "none",
+                    border: "1px solid rgba(245,197,24,0.25)",
+                    borderRadius: "9999px",
+                    padding: "10px 12px",
+                  }}
+                >
+                  {t("nav.login")}
+                </Link>
+                <Link
+                  href={appRoutes.register}
+                  onClick={closeMenu}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "#F5C518",
+                    color: "#0a0a0a",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    padding: "10px 12px",
+                    borderRadius: "9999px",
+                    textDecoration: "none",
+                  }}
+                >
+                  {t("nav.join")}
+                </Link>
+              </>
+            )}
           </div>
         </div>
       ) : null}

@@ -8,7 +8,7 @@ export async function AboutPage() {
     <main className="about-page">
       <header className="about-hero">
         <div className="about-hero-accent" aria-hidden />
-        <p className="about-kicker">Why dotadeaf exists</p>
+        <p className="about-kicker">{t("about.kicker")}</p>
         <h1 className="about-title">{t("about.title")}</h1>
         <p className="about-subtitle">{t("about.subtitle")}</p>
       </header>
@@ -33,7 +33,7 @@ export async function AboutPage() {
 
       <section className="about-values-section">
         <div className="about-values-heading">
-          <p className="about-kicker">What the platform offers</p>
+          <p className="about-kicker">{t("about.values_kicker")}</p>
           <h2 className="about-values-title">{t("about.values_title")}</h2>
         </div>
 

@@ -148,7 +148,7 @@ export function HomePage() {
         />
         <div className="home-hero-content">
           <p className="home-hero-badge">{t("hero.badge")}</p>
-          <p className="home-hero-kicker">Dota 2 matchmaking for deaf players</p>
+          <p className="home-hero-kicker">{t("hero.kicker")}</p>
           <h1 className="home-hero-title">
             <span>{t("hero.title1")}</span>
             <span className="home-hero-title-accent">

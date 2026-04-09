@@ -404,6 +404,21 @@ h6 {
   color: #fff;
 }
 
+.ui-public-footer-logout {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #71717a;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ui-public-footer-logout:hover {
+  background: transparent;
+  color: #fff;
+}
+
 .navbar-pill {
   max-width: 1040px !important;
   background: rgba(11, 11, 13, 0.84);
@@ -479,6 +494,30 @@ h6 {
   border-radius: 9999px;
   text-decoration: none;
   transition: background 0.15s;
+}
+
+.navbar-logout-button,
+.navbar-mobile-logout-button {
+  border: 1px solid rgba(245, 197, 24, 0.22);
+  background: rgba(245, 197, 24, 0.08);
+  color: #f5c518;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  min-height: 0;
+}
+
+.navbar-logout-button {
+  padding: 8px 14px;
+}
+
+.navbar-mobile-logout-button {
+  padding: 10px 12px;
+}
+
+.navbar-logout-button:hover,
+.navbar-mobile-logout-button:hover {
+  background: rgba(245, 197, 24, 0.16);
 }
 
 @media (max-width: 900px) {

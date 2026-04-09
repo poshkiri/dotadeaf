@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
+import { Navbar } from "./Navbar";
 
 import { SiteContainer } from "./SiteContainer";
 
@@ -12,8 +13,11 @@ export async function PlatformShell({ children }: PlatformShellProps) {
 
   return (
     <div className="ui-platform-shell">
+      <Navbar isAuthenticated />
       <SiteContainer>
-        <div className="ui-platform-content">{children}</div>
+        <div className="ui-platform-content" style={{ paddingTop: "80px" }}>
+          {children}
+        </div>
       </SiteContainer>
 
       <footer className="ui-platform-footer">

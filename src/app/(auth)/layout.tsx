@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Navbar } from "@/components/layout/Navbar";
 import {
   getProfileByUserId,
   isProfileSufficientlyCompletedForMvp,
@@ -27,5 +28,10 @@ export default async function AuthLayout({
     redirect(resolvePostAuthDestination({ isProfileComplete, locale }));
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar />
+      <main style={{ backgroundColor: "#0a0a0a", paddingTop: "80px" }}>{children}</main>
+    </>
+  );
 }
