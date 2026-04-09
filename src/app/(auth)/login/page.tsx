@@ -35,24 +35,29 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <main className="ui-auth-page">
+      <div className="ui-auth-backdrop" aria-hidden>
+        <div className="ui-auth-orb ui-auth-orb-gold" />
+        <div className="ui-auth-orb ui-auth-orb-red" />
+      </div>
+
       <section className="ui-auth-panel" aria-label={t("auth_page.login_panel")}>
-        <header className="ui-auth-header">
-          <h1 className="ui-heading-1">{t("auth_page.login_title")}</h1>
-          <p className="ui-muted">{t("auth_page.login_subtitle")}</p>
+        <header className="ui-auth-header ui-auth-hero">
+          <p className="ui-auth-kicker">{t("auth_page.login_panel")}</p>
+          <h1 className="ui-heading-1 ui-auth-title">{t("auth_page.login_title")}</h1>
+          <p className="ui-muted ui-auth-subtitle">{t("auth_page.login_subtitle")}</p>
         </header>
 
-        <AuthFormMessage message={authErrorMessage} />
+        <div className="ui-auth-stack">
+          <AuthFormMessage message={authErrorMessage} />
+          <LoginForm />
 
-        <LoginForm />
+          <section aria-label={t("auth_page.or_continue")} className="ui-section ui-auth-card ui-auth-alt-card">
+            <h2 className="ui-heading-2 ui-auth-alt-title">{t("auth_page.or_continue")}</h2>
+            <GoogleSignInButton label={t("auth_page.login_google")} />
+          </section>
+        </div>
 
-        <hr className="ui-divider" />
-
-        <section aria-label={t("auth_page.or_continue")} className="ui-section ui-card">
-          <h2 className="ui-heading-2">{t("auth_page.or_continue")}</h2>
-          <GoogleSignInButton label={t("auth_page.login_google")} />
-        </section>
-
-        <p className="ui-muted">
+        <p className="ui-muted ui-auth-switch">
           {t("auth_page.no_account")} <Link href="/register">{t("auth_page.create_one")}</Link>
         </p>
       </section>

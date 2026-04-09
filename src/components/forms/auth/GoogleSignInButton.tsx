@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { appRoutes, getLocaleFromPath, getPathWithLocale } from "@/i18n/paths";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { AuthFormMessage } from "./AuthFormMessage";
 
 type GoogleSignInButtonProps = {
   label?: string;
@@ -56,13 +57,16 @@ export function GoogleSignInButton({
   }
 
   return (
-    <div className="ui-form">
-      <button type="button" onClick={handleGoogleSignIn} disabled={isLoading}>
+    <div className="ui-form ui-auth-google-stack">
+      <button
+        type="button"
+        onClick={handleGoogleSignIn}
+        disabled={isLoading}
+        className="ui-auth-google-button"
+      >
         {isLoading ? t("auth_form.redirecting") : (label ?? t("auth_page.login_google"))}
       </button>
-      <p role="alert" aria-live="polite" className="ui-field-error">
-        {errorMessage ?? ""}
-      </p>
+      <AuthFormMessage message={errorMessage} />
     </div>
   );
 }

@@ -22,6 +22,9 @@ export function RegisterForm({
   const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState(formError);
+  const [messageTone, setMessageTone] = useState<"error" | "success">(
+    formError ? "error" : "success",
+  );
   const [fieldErrors, setFieldErrors] = useState({
     email: emailError,
     password: passwordError,
@@ -51,6 +54,7 @@ export function RegisterForm({
 
     setFieldErrors(nextFieldErrors);
     setFormMessage(undefined);
+    setMessageTone("error");
 
     if (
       nextFieldErrors.email ||
@@ -69,15 +73,18 @@ export function RegisterForm({
       });
 
       if (error) {
+        setMessageTone("error");
         setFormMessage(t("auth_form.registration_failed"));
         return;
       }
 
       form.reset();
+      setMessageTone("success");
       setFormMessage(
         t("auth_form.registration_success"),
       );
     } catch {
+      setMessageTone("error");
       setFormMessage(t("auth_form.registration_failed"));
     } finally {
       setIsSubmitting(false);
@@ -85,8 +92,8 @@ export function RegisterForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="ui-form ui-card">
-      <AuthFormMessage message={formMessage} />
+    <form onSubmit={handleSubmit} className="ui-form ui-auth-card ui-auth-form-card">
+      <AuthFormMessage message={formMessage} tone={messageTone} />
       <AuthFormField
         id="register-email"
         label={t("auth_form.email")}
@@ -114,7 +121,7 @@ export function RegisterForm({
         required
         error={fieldErrors.confirmPassword}
       />
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" disabled={isSubmitting} className="ui-auth-submit">
         {isSubmitting ? t("auth_form.creating_account") : t("auth_form.create_account")}
       </button>
     </form>

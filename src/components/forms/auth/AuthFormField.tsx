@@ -20,8 +20,8 @@ export function AuthFormField({
   const describedBy = error ? `${id}-error` : undefined;
 
   return (
-    <div className="ui-field">
-      <label htmlFor={id}>{label}</label>
+    <div className="ui-field ui-auth-field">
+      <label htmlFor={id} className="ui-auth-label">{label}</label>
       <input
         id={id}
         name={name}
@@ -30,8 +30,9 @@ export function AuthFormField({
         required={required}
         aria-invalid={Boolean(error)}
         aria-describedby={describedBy}
+        className="ui-auth-input"
       />
-      <p id={`${id}-error`} role="alert" className="ui-field-error">
+      <p id={`${id}-error`} role="alert" className="ui-field-error ui-auth-field-error">
         {error ?? ""}
       </p>
     </div>

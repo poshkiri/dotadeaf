@@ -71,7 +71,7 @@ export function LoginForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="ui-form ui-card">
+    <form onSubmit={handleSubmit} className="ui-form ui-auth-card ui-auth-form-card">
       <AuthFormMessage message={formMessage} />
       <AuthFormField
         id="login-email"
@@ -91,7 +91,7 @@ export function LoginForm({
         required
         error={fieldErrors.password}
       />
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" disabled={isSubmitting} className="ui-auth-submit">
         {isSubmitting ? t("auth_form.signing_in") : t("auth_form.login")}
       </button>
     </form>
