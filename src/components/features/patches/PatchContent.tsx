@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { toContentBlocks } from "./patchContentParser";
@@ -68,75 +67,27 @@ const diffStyles = {
 export function PatchContent({ title, publishedAt, content }: PatchContentProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const [backHover, setBackHover] = useState(false);
   const blocks = toContentBlocks(content);
   const version = extractVersion(title);
 
   return (
-    <article
-      className="patch-article patch-content-wrapper"
-      style={{
-        maxWidth: "720px",
-        margin: "0 auto",
-        padding: "120px 24px 80px",
-        width: "100%",
-      }}
-    >
-      <header style={{ marginBottom: "0" }}>
-        <Link
-          href="/patches"
-          onMouseEnter={() => setBackHover(true)}
-          onMouseLeave={() => setBackHover(false)}
-          style={{
-            color: backHover ? "#F5C518" : "#71717a",
-            fontSize: "14px",
-            marginBottom: "24px",
-            display: "block",
-            textDecoration: "none",
-            transition: "color 0.15s ease",
-          }}
-        >
+    <article className="patch-article patch-content-wrapper">
+      <header className="patch-content-header">
+        <Link href="/patches" className="patch-back-link">
           {t("patches.back_to_all")}
         </Link>
         {version ? (
-          <span
-            style={{
-              display: "inline-block",
-              fontSize: "13px",
-              fontWeight: 600,
-              color: "#F5C518",
-              background: "rgba(245,197,24,0.1)",
-              padding: "4px 12px",
-              borderRadius: "9999px",
-            }}
-          >
+          <span className="patch-detail-badge">
             {version}
           </span>
         ) : null}
-        <h1
-          style={{
-            color: "#fafafa",
-            fontSize: "clamp(28px, 4vw, 42px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            margin: "12px 0 0",
-            lineHeight: 1.1,
-          }}
-        >
-          {title}
-        </h1>
-        <p style={{ color: "#71717a", fontSize: "14px", marginTop: "12px", marginBottom: 0 }}>
+        <h1 className="patch-detail-title">{title}</h1>
+        <p className="patch-detail-date">
           <time dateTime={publishedAt ?? undefined}>
             {formatPatchDate(publishedAt, locale, t("patches.date_missing"))}
           </time>
         </p>
-        <div
-          style={{
-            height: "1px",
-            background: "rgba(255,255,255,0.07)",
-            margin: "24px 0",
-          }}
-        />
+        <div className="patch-detail-divider" />
       </header>
 
       <section aria-label="Patch content" className="patch-content-body">
@@ -147,37 +98,11 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
             return (
               <div
                 key={`heading-wrap-${index}`}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  marginTop: isFirstHeading ? 0 : "36px",
-                  marginBottom: "12px",
-                  paddingBottom: "10px",
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
-                }}
+                className="patch-section-heading-wrap"
+                style={{ marginTop: isFirstHeading ? 0 : "36px" }}
               >
-                <div
-                  aria-hidden
-                  style={{
-                    width: "4px",
-                    height: "20px",
-                    background: "#F5C518",
-                    borderRadius: "2px",
-                    boxShadow: "0 0 8px rgba(245,197,24,0.5)",
-                    flexShrink: 0,
-                  }}
-                />
-                <h2
-                  id={block.id}
-                  className="scroll-mt-28"
-                  style={{
-                    color: "#fafafa",
-                    fontSize: "20px",
-                    fontWeight: 700,
-                    margin: 0,
-                  }}
-                >
+                <div aria-hidden className="patch-section-heading-bar" />
+                <h2 id={block.id} className="scroll-mt-28 patch-section-heading">
                   {block.text}
                 </h2>
               </div>
@@ -188,16 +113,10 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
             return (
               <ul
                 key={`list-${index}`}
-                style={{
-                  margin: "16px 0",
-                  paddingLeft: "1.25rem",
-                  color: "#a1a1aa",
-                  fontSize: "15px",
-                  lineHeight: 1.8,
-                }}
+                className="patch-rich-list"
               >
                 {block.items.map((item, itemIndex) => (
-                  <li key={`item-${index}-${itemIndex}`} style={{ marginBottom: "0.35rem" }}>
+                  <li key={`item-${index}-${itemIndex}`} className="patch-rich-list-item">
                     {item}
                   </li>
                 ))}
@@ -207,7 +126,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
 
           if (block.type === "diff") {
             return (
-              <div key={`diff-${index}`} style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+              <div key={`diff-${index}`} className="patch-diff-group">
                 {block.lines.map((line, lineIndex) => {
                   const tone = diffRowStyle(line);
                   const s = diffStyles[tone];
@@ -219,6 +138,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
                         lineHeight: 1.6,
                         ...s,
                       }}
+                      className="patch-diff-row"
                     >
                       {line}
                     </div>
@@ -232,7 +152,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
             return (
               <pre
                 key={`code-${index}`}
-                className="my-5 overflow-x-auto rounded-lg border border-zinc-700 bg-zinc-800 p-3 font-mono text-xs text-zinc-100"
+                className="patch-code-block"
               >
                 <code>{block.lines.join("\n")}</code>
               </pre>
@@ -242,12 +162,7 @@ export function PatchContent({ title, publishedAt, content }: PatchContentProps)
           return (
             <p
               key={`paragraph-${index}`}
-              style={{
-                color: "#a1a1aa",
-                fontSize: "15px",
-                lineHeight: 1.8,
-                marginBottom: "1rem",
-              }}
+              className="patch-rich-paragraph"
             >
               {block.text}
             </p>

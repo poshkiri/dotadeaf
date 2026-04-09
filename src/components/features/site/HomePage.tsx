@@ -71,6 +71,8 @@ export function HomePage() {
   const t = useTranslations();
   const typedText = useTypewriter(t("hero.title2"), 70, 800);
   const { ref: ref1, count: count1 } = useCountUp(500);
+  const resolvedHeroTitle = typedText || t("hero.title2");
+  const resolvedPlayersCount = count1 === 0 ? 500 : count1;
   const statsPlayersLabel = t("stats.players").replace(/^500\+\s*/, "");
 
   return (
@@ -144,42 +146,14 @@ export function HomePage() {
             pointerEvents: "none",
           }}
         />
-        <div
-          className="home-hero-content"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            maxWidth: "760px",
-            width: "100%",
-            margin: "0 auto",
-            marginTop: 0,
-            paddingTop: 0,
-            textAlign: "center",
-            background: "transparent",
-          }}
-        >
+        <div className="home-hero-content">
           <p className="home-hero-badge">{t("hero.badge")}</p>
+          <p className="home-hero-kicker">Dota 2 matchmaking for deaf players</p>
           <h1 className="home-hero-title">
             <span>{t("hero.title1")}</span>
-            <span
-              style={{
-                background: "linear-gradient(135deg, #F5C518, #ff9f00)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              {typedText}
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "3px",
-                  height: "0.85em",
-                  background: "#F5C518",
-                  marginLeft: "4px",
-                  verticalAlign: "middle",
-                  animation: "blink 1s step-end infinite",
-                }}
-              />
+            <span className="home-hero-title-accent">
+              {resolvedHeroTitle}
+              <span className="home-hero-caret" />
             </span>
           </h1>
           <p className="home-hero-subtitle">{t("hero.subtitle")}</p>
@@ -205,7 +179,7 @@ export function HomePage() {
         <div className="home-stats-inner">
           <div className="home-stat-item">
             <strong>
-              <span ref={ref1}>{count1}+</span>
+              <span ref={ref1}>{resolvedPlayersCount}+</span>
             </strong>
             <span>{statsPlayersLabel}</span>
           </div>

@@ -50,41 +50,17 @@ export function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
-          maxWidth: "768px",
-          background: "rgba(9,9,11,0.8)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(245,197,24,0.12)",
-          borderRadius: "9999px",
-          padding: "8px 20px",
         }}
       >
         <Link
           href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            color: "white",
-            fontWeight: 600,
-            fontSize: "14px",
-            textDecoration: "none",
-          }}
+          className="navbar-brand"
         >
-          <span
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "#F5C518",
-              display: "inline-block",
-              flexShrink: 0,
-            }}
-          />
+          <span className="navbar-brand-mark" />
           {t("common.brand")}
         </Link>
 
-        <div className="navbar-links" style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+        <div className="navbar-links">
           {[
             { href: "/players", label: t("nav.players") },
             { href: "/patches", label: t("nav.patches") },
@@ -94,12 +70,7 @@ export function Navbar() {
               key={href}
               href={href}
               onClick={closeMenu}
-              style={{
-                color: "#a1a1aa",
-                fontSize: "14px",
-                textDecoration: "none",
-                transition: "color 0.15s",
-              }}
+              className="navbar-link"
               onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
             >
@@ -108,23 +79,14 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="navbar-actions" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <div className="navbar-actions">
           <button
             type="button"
             onClick={() => {
               closeMenu();
               router.replace(pathname, { locale: nextLocale });
             }}
-            style={{
-              border: "1px solid rgba(245,197,24,0.25)",
-              borderRadius: "9999px",
-              background: "transparent",
-              color: "#a1a1aa",
-              fontSize: "12px",
-              padding: "4px 10px",
-              transition: "color 0.15s",
-              cursor: "pointer",
-            }}
+            className="navbar-locale-button"
             onMouseEnter={(e) => (e.currentTarget.style.color = "#F5C518")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
             aria-label={`Switch language to ${nextLocale.toUpperCase()}`}
@@ -134,13 +96,7 @@ export function Navbar() {
           <Link
             href="/login"
             onClick={closeMenu}
-            style={{
-              color: "#a1a1aa",
-              fontSize: "14px",
-              textDecoration: "none",
-              padding: "6px 12px",
-              transition: "color 0.15s",
-            }}
+            className="navbar-login-link"
             onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
           >
@@ -149,16 +105,7 @@ export function Navbar() {
           <Link
             href="/register"
             onClick={closeMenu}
-            style={{
-              background: "#F5C518",
-              color: "#0a0a0a",
-              fontSize: "14px",
-              fontWeight: 700,
-              padding: "6px 16px",
-              borderRadius: "9999px",
-              textDecoration: "none",
-              transition: "background 0.15s",
-            }}
+            className="navbar-join-link"
             onMouseEnter={(e) => (e.currentTarget.style.background = "#d4a017")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#F5C518")}
           >

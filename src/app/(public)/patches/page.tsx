@@ -53,6 +53,7 @@ export default async function PatchesPage() {
     <main className="ui-page ui-patches-layout">
       <header className="ui-players-header">
         <div className="ui-players-header-accent" aria-hidden />
+        <p className="ui-players-kicker">Meta updates in Russian</p>
         <h1 className="ui-players-title">{t("patches.title")}</h1>
         <p className="ui-players-subtitle">{t("patches.subtitle")}</p>
         <p className="ui-patches-lead">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState, type CSSProperties } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { StartChatButton } from "./StartChatButton";
 
@@ -47,18 +47,6 @@ function rankBadgeStyle(rank: string): { background: string; color: string } {
   return { background: "rgba(255,255,255,0.08)", color: "#a1a1aa" };
 }
 
-const cardBaseStyle: CSSProperties = {
-  background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(255,255,255,0.07)",
-  borderRadius: "16px",
-  padding: "20px 24px",
-  display: "flex",
-  flexDirection: "column",
-  gap: "12px",
-  cursor: "pointer",
-  transition: "all 0.2s ease",
-};
-
 export function PlayerCard({
   user_id,
   display_name,
@@ -72,27 +60,11 @@ export function PlayerCard({
   start_chat_action,
 }: PlayerCardProps) {
   const t = useTranslations("player_card");
-  const [hovered, setHovered] = useState(false);
 
   const rankStyles = useMemo(
     () => (rank?.trim() ? rankBadgeStyle(rank) : null),
     [rank],
   );
-
-  const cardStyle = useMemo((): CSSProperties => {
-    if (!hovered) {
-      return cardBaseStyle;
-    }
-    return {
-      ...cardBaseStyle,
-      borderColor: "rgba(245,197,24,0.35)",
-      boxShadow: "0 0 24px rgba(245,197,24,0.06)",
-      transform: "translateY(-2px)",
-    };
-  }, [hovered]);
-
-  const onEnter = useCallback(() => setHovered(true), []);
-  const onLeave = useCallback(() => setHovered(false), []);
 
   const metaLeft =
     [region?.trim(), language?.trim()].filter(Boolean).join(" · ") || null;
@@ -102,132 +74,42 @@ export function PlayerCard({
     (!current_user_id || current_user_id !== user_id);
 
   return (
-    <article
-      style={cardStyle}
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onFocusCapture={onEnter}
-      onBlurCapture={onLeave}
-      tabIndex={0}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-          gap: "12px",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
-          <div
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: "50%",
-              background: "linear-gradient(135deg, #F5C518, #d4a017)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#0a0a0a",
-              fontWeight: 800,
-              fontSize: 16,
-              flexShrink: 0,
-            }}
-            aria-hidden
-          >
+    <article className="ui-player-card-premium" tabIndex={0}>
+      <div className="ui-player-card-premium-glow" aria-hidden />
+      <div className="ui-player-card-premium-head">
+        <div className="ui-player-card-identity">
+          <div className="ui-player-card-avatar" aria-hidden>
             {firstInitial(display_name)}
           </div>
-          <div style={{ minWidth: 0 }}>
-            <div
-              style={{
-                color: "#fafafa",
-                fontWeight: 700,
-                fontSize: 16,
-                lineHeight: 1.25,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {display_name}
-            </div>
+          <div className="ui-player-card-copy">
+            <div className="ui-player-card-name">{display_name}</div>
             {dota_nickname?.trim() ? (
-              <div
-                style={{
-                  color: "#71717a",
-                  fontSize: 13,
-                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <div className="ui-player-card-nickname">
                 {dota_nickname}
               </div>
             ) : null}
           </div>
         </div>
         {rank?.trim() && rankStyles ? (
-          <span
-            style={{
-              ...rankStyles,
-              fontSize: 12,
-              fontWeight: 600,
-              padding: "3px 10px",
-              borderRadius: 9999,
-              flexShrink: 0,
-              whiteSpace: "nowrap",
-            }}
-          >
+          <span className="ui-player-rank-badge" style={rankStyles}>
             {rank.trim()}
           </span>
         ) : null}
       </div>
 
       {roles && roles.length > 0 ? (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        <div className="ui-player-card-tags">
           {roles.map((role) => (
-            <span
-              key={role}
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                color: "#a1a1aa",
-                fontSize: 12,
-                padding: "3px 8px",
-                borderRadius: 6,
-              }}
-            >
-              {role}
-            </span>
+            <span key={role} className="ui-player-card-tag">{role}</span>
           ))}
         </div>
       ) : null}
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 12,
-          marginTop: "auto",
-        }}
-      >
-        <span style={{ color: "#71717a", fontSize: 12 }}>
-          {metaLeft ?? "\u00a0"}
-        </span>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+      <div className="ui-player-card-footer">
+        <span className="ui-player-card-meta">{metaLeft ?? "\u00a0"}</span>
+        <div className="ui-player-card-actions">
           {looking_for_team ? (
-            <span
-              style={{
-                background: "rgba(245,197,24,0.1)",
-                color: "#F5C518",
-                fontSize: 11,
-                fontWeight: 600,
-                padding: "3px 10px",
-                borderRadius: 9999,
-                flexShrink: 0,
-              }}
-            >
+            <span className="ui-player-card-status">
               {t("looking_yes")}
             </span>
           ) : null}
